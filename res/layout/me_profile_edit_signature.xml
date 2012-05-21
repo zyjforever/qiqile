@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_common"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_write" />
+
+    <EditText
+        android:id="@+id/user_signature"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:inputType="text" 
+        android:singleLine="false"   
+    	android:imeOptions="actionSend|flagNoEnterAction"
+		android:gravity="top" 
+        android:hint="@string/signature_hint"/>
+</LinearLayout>

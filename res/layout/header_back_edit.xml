@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 顶部条 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/LinearLayout01"
+      android:layout_width="fill_parent"
+      android:layout_height="47dp"
+      android:background="@drawable/bg_header"
+      android:gravity="center_vertical"
+      android:layout_alignParentTop="true"
+      >
+      
+       <!-- BACK Button -->
+        <Button android:id="@+id/top_back"
+          android:layout_width="wrap_content"
+          android:layout_height="fill_parent"
+          android:layout_alignParentLeft="true"
+          style="@style/simple_button"
+          android:text="@string/button_back"
+          />
+           
+        <TextView
+        android:id="@+id/title"
+        style="@style/header_title"
+        android:text=""/>
+        <ImageButton android:id="@+id/writeMessage"
+           android:background="@null"
+           android:src="@drawable/top_msg_selector"
+           android:layout_width="wrap_content"
+           android:layout_height="fill_parent"
+           android:layout_alignParentRight="true"
+           android:paddingRight="10dip"
+           android:paddingLeft="10dip"
+           android:contentDescription="@string/new_activity"/> 
+
+    </RelativeLayout>
+    

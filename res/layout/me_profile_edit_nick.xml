@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_common"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_write" />
+
+    <EditText
+        android:id="@+id/user_nick"
+        style="@style/simple_editText"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:background="#FFF"
+        android:hint="@string/nick_hint"
+        android:inputType="text" >
+    </EditText>
+
+</LinearLayout>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <!-- Header -->
+
+    <include
+        android:layout_width="fill_parent"
+        layout="@layout/header_back_edit" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_context"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_common" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dip"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/activity_name"
+                style="@style/simple_textView"
+                android:text="三人足球赛"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/activity_people_limit"
+                style="@style/simple_textView"
+                android:text="本活动不限制报名人数" />
+
+            <RelativeLayout
+                android:id="@+id/activity_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/activity_start_time"
+                    style="@style/simple_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="2012-5-15 00:40" />
+
+                <TextView
+                    android:id="@+id/from_to"
+                    style="@style/simple_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/activity_start_time"
+                    android:text="@string/from_to" />
+
+                <TextView
+                    android:id="@+id/activity_end_time"
+                    style="@style/simple_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/from_to"
+                    android:text="2012-5-16 00:40" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/activity_location"
+                style="@style/simple_textView"
+                android:text="广州（番禺区大学城广工体育场）" />
+
+            <RelativeLayout
+                android:id="@+id/activity_user"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5.0dip" >
+
+                <ImageView
+                    android:id="@+id/activity_user_image"
+                    android:layout_width="30.0dip"
+                    android:layout_height="30.0dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@android:drawable/ic_menu_gallery" />
+
+                <TextView
+                    android:id="@+id/activity_user_name"
+                    style="@style/simple_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/activity_user_image"
+                    android:text="@string/activity_context_header"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/activity_user_explain"
+                    style="@style/simple_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_toRightOf="@+id/activity_user_name"
+                    android:text="@string/activity_user_explain"
+                    android:textColor="#000" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_control"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:layout_margin="10.0dip" >
+
+        <Button
+            android:id="@+id/button_join"
+            style="@style/blue_button"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.4"
+            android:text="@string/join_activity" />
+
+        <Button
+            android:id="@+id/button_activity_join"
+            style="@style/blue_button"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.3"
+            android:text="@string/activity_join" />
+
+        <Button
+            android:id="@+id/button_activity_comment"
+            style="@style/blue_button"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.3"
+            android:text="@string/activity_comment" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10.0dip"
+        android:background="@color/clear"
+        android:orientation="vertical" >
+
+        <!-- 活动图片 -->
+
+        <ImageView
+            android:id="@+id/activity_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="5.0dip"
+            android:src="@android:drawable/ic_menu_gallery" />
+
+        <TextView
+            android:id="@+id/activity_context"
+            style="@style/normalText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/activity_image"
+            android:text="三人足球赛, 每队至少3人，奖金丰富,三人足球赛, 每队至少3人，奖金丰富，三人足球赛, 每队至少3人，奖金丰富,三人足球赛, 每队至少3人，奖金丰富" />
+    </RelativeLayout>
+
+</LinearLayout>

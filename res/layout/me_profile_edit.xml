@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_common"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_write" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15.0dip"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#FFF" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/user_nick"
+            style="@style/hint_textView"
+            android:layout_width="fill_parent"
+            android:layout_toRightOf="@+id/user_image"
+            android:background="#FFF"
+            android:hint="@string/nick_hint" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/user_image"
+            android:layout_toLeftOf="@+id/user_nick"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_div"
+        android:layout_width="fill_parent"
+        android:layout_height="203.0dip"
+        android:layout_marginLeft="15.0dip"
+        android:layout_marginRight="15.0dip"
+        android:background="@drawable/panel_bg" >
+
+        <RelativeLayout
+            android:id="@+id/signature_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/signatue_hint"
+                style="@style/hint_textView"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="15dip"
+                android:text="@string/input_signature" />
+
+            <TextView
+                style="@style/arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/user_signature"
+                style="@style/hint_textView"
+                android:layout_alignLeft="@+id/signatue_hint"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/signature_hint" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_1"
+            style="@style/hr"
+            android:layout_below="@+id/signature_edit" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/sex_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_1" >
+
+            <TextView
+                android:id="@+id/sex_hint"
+                style="@style/hint_textView"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="15dip"
+                android:text="@string/input_sex" />
+
+            <TextView
+                style="@style/arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/user_sex"
+                style="@style/hint_textView"
+                android:layout_alignLeft="@+id/sex_hint"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/sex_hint" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_2"
+            style="@style/hr"
+            android:layout_below="@+id/sex_edit" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/birthday_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_2" >
+
+            <TextView
+                android:id="@+id/birthday_hint"
+                style="@style/hint_textView"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="15dip"
+                android:text="@string/input_birthday" />
+
+            <TextView
+                style="@style/arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/user_birthday"
+                style="@style/hint_textView"
+                android:layout_alignLeft="@+id/birthday_hint"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/birthday_hint" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_3"
+            style="@style/hr"
+            android:layout_below="@+id/birthday_edit" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/city_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_3" >
+
+            <TextView
+                android:id="@+id/city_hint"
+                style="@style/hint_textView"
+                android:layout_alignParentLeft="true"
+                android:paddingTop="15dip"
+                android:text="@string/input_city" />
+
+            <TextView
+                style="@style/arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/user_city"
+                style="@style/hint_textView"
+                android:layout_alignLeft="@+id/city_hint"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="40dp"
+                android:hint="@string/city_hint" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

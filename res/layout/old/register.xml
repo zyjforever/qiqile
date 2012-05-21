@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_login"
+    android:orientation="vertical" >
+
+    <!-- 顶部条 -->
+    <include layout="@layout/header_write"/>
+    <RelativeLayout
+        android:id="@+id/login_div"
+        android:layout_width="fill_parent"
+        android:layout_height="369dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/background_login_div_bg"
+        android:padding="15dp" >
+
+        <!-- 账号 text -->
+        <TextView
+            android:id="@+id/account_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/input_account" />
+
+        <!-- 账号 input -->
+        <EditText
+            android:id="@+id/account_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/account_input"
+            android:inputType="text"
+            android:singleLine="true" />
+        
+     	<!-- 昵称 text -->
+        <TextView
+            android:id="@+id/nick_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/account_edit"
+            android:layout_marginTop="3dp"
+            android:text="@string/input_nick" />
+        
+        <!-- 昵称 input -->
+        <EditText
+            android:id="@+id/nick_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nick_input"
+            android:inputType="text"
+            android:singleLine="true" />
+        
+        <!-- 邮箱 text -->
+        <TextView
+            android:id="@+id/email_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nick_edit"
+            android:layout_marginTop="3dp"
+            android:text="@string/input_email" />
+        <!-- 邮箱 input -->
+        <EditText
+            android:id="@+id/email_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email_input"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+        
+        
+        <!-- 密码 text -->
+        <TextView
+            android:id="@+id/password_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email_edit"
+            android:layout_marginTop="3dp"
+            android:text="@string/input_password" />
+        <!-- 密码 input -->
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_input"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+        
+		<!-- 确认密码 text -->
+        <TextView
+            android:id="@+id/password_confirm_input"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_edit"
+            android:layout_marginTop="3dp"
+            android:text="@string/input_password_confirm" />
+        <!-- 密码 input -->
+        <EditText
+            android:id="@+id/password_confirm_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_confirm_input"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+        <!-- 提示栏 -->
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/password_edit"
+            android:layout_alignRight="@+id/password_edit"
+            android:layout_below="@+id/password_confirm_edit"
+            android:autoLink="web"
+            android:clickable="true"
+            android:gravity="bottom"
+            android:textColor="#888"
+            android:textSize="13dp" />
+    </RelativeLayout>
+
+</LinearLayout>

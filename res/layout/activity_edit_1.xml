@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_common"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_back_next" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
+            android:layout_margin="15.0dip"
+            android:background="@drawable/panel_bg" >
+
+            <EditText
+                android:id="@+id/activity_name"
+                style="@style/simple_editText"
+                android:hint="@string/activity_name_hint" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

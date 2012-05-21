@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_login" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+         android:layout_height="fill_parent" >
+
+        <RelativeLayout
+            android:id="@+id/login_div"
+            android:layout_width="fill_parent"
+            android:layout_height="101.0dip"
+            android:layout_margin="15.0dip"
+            android:background="@drawable/panel_bg" >
+
+            <EditText
+                android:id="@+id/account_edit"
+                style="@style/simple_editText"
+                android:hint="@string/input_email_and_account"
+                android:inputType="text|textEmailAddress" />
+
+            <View
+                android:id="@+id/view_1"
+                style="@style/hr"
+                android:layout_below="@+id/account_edit" >
+            </View>
+
+            <EditText
+                android:id="@+id/password_edit"
+                style="@style/simple_editText"
+                android:layout_below="@+id/view_1"
+                android:hint="@string/input_password"
+                android:inputType="textPassword" />
+        </RelativeLayout>
+
+        <!-- 提示栏 -->
+
+        <ProgressBar
+            android:id="@+id/top_refresh_progressBar"
+            style="?android:progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <!-- 登陆 button -->
+
+        <Button
+            android:id="@+id/signin_button"
+            style="@style/blue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/login_div"
+            android:layout_alignRight="@+id/login_div"
+            android:layout_below="@+id/login_div"
+            android:text="@string/login_label_signin" />
+
+        <TextView
+            android:id="@+id/find_password_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/signin_button"
+            android:layout_below="@+id/signin_button"
+            android:layout_marginTop="16dp"
+            android:text="@string/find_password_link"
+            android:textColor="#888"
+            android:textColorLink="@color/link_color" />
+    </RelativeLayout>
+
+</LinearLayout>

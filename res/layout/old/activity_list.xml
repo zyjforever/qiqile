@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_height="fill_parent"
+        layout="@layout/header" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        android:background="#555" >
+
+        <TextView
+            android:id="@+id/current_location"
+            style="@style/hint_textView2"
+            android:text="@string/current_location" />
+
+        <TextView
+            android:id="@+id/left_bracket"
+            style="@style/hint_textView2"
+            android:layout_toRightOf="@+id/current_location"
+            android:text="@string/left_bracket" />
+
+        <TextView
+            android:id="@+id/location"
+            style="@style/hint_textView2"
+            android:layout_marginLeft="0.0dip"
+            android:layout_toRightOf="@+id/left_bracket"
+            android:text="" />
+
+        <TextView
+            style="@style/hint_textView2"
+            android:layout_marginLeft="0.0dip"
+            android:layout_toRightOf="@+id/location"
+            android:text="@string/right_bracket" />
+    </RelativeLayout>
+
+    <!-- Main content area. -->
+
+
+    <!-- 动态加载View -->
+
+    <LinearLayout
+        android:id="@+id/containerBody"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:measureAllChildren="true" >
+    </LinearLayout>
+
+</LinearLayout>

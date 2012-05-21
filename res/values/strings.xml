@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+
+    <string name="app_name">齐齐乐</string>
+
+    <!-- 错误提示 -->
+    <string name="error_not_authorized">帐号验证失败，请重新登录.</string>
+    <string name="error_server_down">服务器暂时无法响应.</string>
+    <string name="error_user_signature_toolong">签名不能超过100个字</string>
+    <string name="error_user_nick_toolong">昵称为2~20个字</string>
+    <string name="error_user_email">邮箱格式错误</string>
+    <string name="error_activity_context_toolong">活动详情不能超过300个字</string>
+    <string name="error_different_password">两次输入密码不一致</string>
+    <string name="error_password">密码应该为5~20个字符</string>
+    <string name="error_unknow">未知错误</string>
+    <!-- 按钮提示 -->
+    <string name="page_label_get_more">获取更多</string>
+    <string name="page_label_go_back">返回</string>
+    <!-- options menu -->
+    <string name="omenu_signout">注销</string>
+    <string name="omenu_refresh">刷新</string>
+    <string name="omenu_preferences">选项</string>
+    <string name="omenu_settings">设置</string>
+    <string name="omenu_search">搜索</string>
+    <string name="omenu_about">关于我</string>
+    <string name="omenu_exit">退出</string>
+    <string name="omenu_more">更多</string>
+    <string name="omenu_modify_password">修改密码</string>
+    <string name="omenu_feedback">意见反馈</string>
+    <string name="omenu_help">帮助</string>
+
+    <!-- Login页面 -->
+    <string name="login_label_username">登陆账号或Email:</string>
+    <string name="login_label_password">密码:</string>
+    <string name="login_label_signin">登 录</string>
+    <string name="login_status_logging_in">登录中…</string>
+    <string name="login_status_null_username_or_password">帐号和密码不能为空。</string>
+    <string name="login_status_invalid_username_or_password">帐号或密码错误，请重新输入。</string>
+    <string name="login_status_network_or_connection_error">网络错误，请稍后再试。</string>
+    <string name="login_register_link">没有帐号？ <a href="#">注册</a></string>
+    <string name="find_password_link">忘记密码？</string>
+    <string name="login_status_failure">登录失败。</string>
+    <string name="login_success">登录成功</string>
+
+    <!-- common status -->
+    <string name="commit_status_in">正在提交…</string>
+    <string name="commit_status_success">提交成功！</string>
+    <string name="commit_status_fail">提交失败！</string>
+    <string name="status_loading">正在加载…</string>
+    <string name="status_fail">加载失败！</string>
+    <string name="status_success">加载成功！</string>
+     <string name="activity_status_empty">没有活动！</string>
+    <!-- register status -->
+    <string name="register_status_in">正在注册</string>
+    <string name="register_status_success">注册成功！请用刚注册的账号登录！</string>
+    <string name="register_status_fail_email">注册失败！此账号已经注册！</string>
+
+    <!-- upload img status -->
+    <string name="upload_img_status_in">上传图片中…</string>
+    <string name="upload_img_status_success">上传成功！</string>
+    <string name="upload_img_status_fail">上传失败！</string>
+    <!-- User页面 -->
+    <string name="user_label_follow">关注此人</string>
+    <string name="user_label_unfollow">取消关注</string>
+    <string name="user_status_following">正在关注…</string>
+    <string name="user_status_unfollowing">正在取消关注…</string>
+    <string name="user_prompt_this_person_has_protected_their_updates">该用户只向关注他/她的人公开消息。</string>
+    <string name="user_query_status_success">查询成功！</string>
+
+    <!-- 搜索 -->
+    <string name="search_label">齐齐乐</string>
+    <string name="search_hint">搜索</string>
+    <string name="trends_title">热门话题</string>
+    <string name="saved_search_title">关注的话题</string>
+    <string name="search_loading">正在查询...</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
+    <string name="pull_to_refresh_release_label">松开刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">读取中...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新...</string>
+
+    <!-- header文案 -->
+    <string name="find_password_header">找回密码</string>
+    <string name="user_register_header">用户注册</string>
+    <string name="activity_comment_header">活动动态</string>
+    <string name="activity_context_header">活动详情</string>
+    <string name="activity_picUrl_header">活动海报</string>
+    <string name="activity_join_header">参加者</string>
+    <string name="profile_me_header">我的资料</string>
+    <string name="profile_me_edit_header">修改资料</string>
+    <string name="login_header">登录</string>
+    <string name="input_nick_header">输入昵称</string>
+    <string name="input_signature_header">修改签名</string>
+    <string name="input_birthday_header">选择生日</string>
+    <string name="input_sex_header">选择性别</string>
+    <string name="input_city_header">选择城市</string>
+    <string name="input_activity_name_header">活动主题</string>
+    <string name="input_activity_time_header">活动时间</string>
+    <string name="input_activity_location_header">活动地点</string>
+    <string name="input_activity_people_limit_header">人数限制</string>
+    <string name="more_header">更多</string>
+    <!-- 找回密码 -->
+    <string name="find_password_point">提示：\n
+	1、请输入您的登录邮箱或者注册邮箱\n
+	2、修改密码的链接会发送到您填写的邮箱，登录您的邮箱点击链接，就可以修改密码\n</string>
+    <string name="find_password_success">请尽快登录邮箱，修改您的密码</string>
+
+    <!-- 通用TextFile提示 -->
+    <string name="input_email">邮箱</string>
+    <string name="input_email_and_account">邮箱/用户名</string>
+    <string name="input_nick">昵称(2–10个字)</string>
+    <string name="input_account">账号名(4–20个字符)</string>
+    <string name="input_password">密码(8–20个字符)</string>
+    <string name="input_password_confirm">确认密码</string>
+    <string name="input_sex">性别</string>
+    <string name="input_birthday">生日</string>
+    <string name="input_signature">签名</string>
+    <string name="input_city">城市</string>
+    <string name="input_start_time">开始时间</string>
+    <string name="input_end_time">结束时间</string>
+    <string name="input_people_limit">人数限制</string>
+    <!-- 通用button文案 -->
+    <string name="button_confirm">确认</string>
+    <string name="button_register">注册</string>
+    <string name="button_back">返回</string>
+    <string name="button_previou">上一步</string>
+    <string name="button_next">下一步</string>
+    <string name="button_upload_activity_img">上传海报</string>
+    <string name="button_delete_activity_img">移除</string>
+    <string name="button_select_location">在地图上标记地点</string>
+    <string name="button_reply">回复</string>
+    <!-- footer文案 -->
+    <string name="footer_user_info">我</string>
+    <string name="footer_more">更多</string>
+    <string name="footer_attention">关注</string>
+    <string name="footer_activity">活动</string>
+    <string name="footer_login">注册登录</string>
+
+    <!-- 通用文案 -->
+    <string name="please_login">请登陆后操作！</string>
+    <string name="confirm">确认</string>
+    <string name="search">搜索</string>
+    <string name="new_activity">发布活动</string>
+    <string name="refresh">刷新</string>
+    <string name="profile_activity_name_title">活动主题：</string>
+    <string name="join_activity">我要加入</string>
+    <string name="activity_join">参加者</string>
+    <string name="activity_comment">活动动态</string>
+    <string name="actvity_profile">活动详情</string>
+    <string name="user_city_title">所在城市</string>
+    <string name="user_signature_title">签名</string>
+    <string name="sex_boy">帅哥</string>
+    <string name="sex_girl">美女</string>
+    <string name="sex_other">不告诉你</string>
+    <string name="current_location">当前位置</string>
+    <string name="from_to">至</string>
+    <string name="activity_user_explain">(发起人)</string>
+    <string name="people_limit_no">无</string>
+    <string name="people_limit_ten">10</string>
+    <string name="people_limit_twenty">20</string>
+    <string name="people_limit_fifty">50</string>
+    <string name="people_limit_no_string">本活动不限制人数报名</string>
+    <string name="people_limit_ten_string">本活动限10人以内报名</string>
+    <string name="people_limit_twenty_string">本活动限20人以内报名</string>
+    <string name="people_limit_fifty_string">本活动限50人以内报名</string>
+    <string name="send_hint">请输入</string>
+    <string name="current_account">当前登录的账号是：</string>
+    <string name="add_friend">加为好友</string>
+    <string name="add_activity_image">请添加一张海报吧！</string>
+    <string name="activity_preview">预览</string>
+    <string name="load">加载</string>
+    <!-- EditText hint -->
+    <string name="nick_hint">请输入昵称</string>
+    <string name="signature_hint">请输入签名</string>
+    <string name="sex_hint">请选择性别</string>
+    <string name="birthday_hint">请选择生日</string>
+    <string name="city_hint">请选择城市</string>
+    <string name="activity_name_hint">请输入活动主题</string>
+    <string name="activity_context_hint">请输入活动内容</string>
+    <string name="start_time_hint">请选择活动开始时间</string>
+    <string name="end_time_hint">请选择活动结束时间</string>
+    <string name="location_hint">请输入具体地点</string>
+    <string name="start_time_error">开始时间不能大于结束时间</string>
+    <string name="current_password">请输入原密码</string>
+    <string name="new_password">请输入新密码</string>
+    <string name="new_password_again">请重复新密码</string>
+    <string name="password_different">两次密码不相同</string>
+    <string name="feedback_hint">亲，欢迎你提供给我宝贵的意见和建议。</string>
+    <!-- 需要显示的符号 -->
+    <string name="left_bracket">[</string>
+    <string name="right_bracket">]</string>
+    <!-- Write页面 -->
+    <string name="write_label_send">发送</string>
+    <string name="write_label_send_hint">说点什么呗</string>
+    <string name="write_label_choose_images">插入图片</string>
+    <string name="write_label_send_in_background">后台发送</string>
+    <string name="write_label_take_a_picture">相机拍摄</string>
+    <string name="write_label_choose_a_picture">手机相册</string>
+    <string name="write_label_insert_picture">插入图片</string>
+    <string name="write_label_you_can_type_prefix">可以输入</string>
+    <string name="write_label_you_can_type_suffix">字</string>
+
+    <!-- 弹出确认框文案 -->
+    <string name="confirm_lognout">确认要退出账号吗？</string>
+    <string name="confirm_exit">确认要退出吗？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+
+</resources>

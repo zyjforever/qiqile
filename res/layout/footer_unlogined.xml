@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 底部栏 -->
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@drawable/maintab_toolbar_bg">
+        
+        <TextView android:id="@+id/footer_btn_share"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:layout_weight="1"
+         style="@style/footer_button"
+         android:drawableTop="@drawable/detail_fav_highlight_selected"
+         android:text="@string/footer_activity"
+         />
+         <TextView android:id="@+id/footer_btn_more"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:layout_weight="1"
+         style="@style/footer_button"
+         android:drawableTop="@drawable/detail_more_selected"
+         android:text="@string/footer_more"
+         />
+         <TextView android:id="@+id/footer_btn_login"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:layout_weight="1"
+         style="@style/footer_button"
+         android:drawableTop="@drawable/detail_locked"
+         android:text="@string/footer_login"
+         />
+        
+        
+   </LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <!-- 顶部条 -->
+
+    <RelativeLayout
+        android:id="@+id/find_password"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/bg_header"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/top_back"
+            style="@style/simple_button"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:text="@string/page_label_go_back" />
+
+        <TextView
+            android:id="@+id/header_title"
+            style="@style/header_title"
+            android:text="@string/activity_comment" />
+
+        <ImageButton
+            android:id="@+id/writeMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:contentDescription="@string/new_activity"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:src="@drawable/top_msg_selector" />
+    </RelativeLayout>
+
+    <!-- Main content area. -->
+    <ScrollView >
+        
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 通用的用户list item -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/body_background"
+    android:orientation="horizontal" >
+
+    <!-- profile image -->
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="2dp"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10.0dip" >
+
+        <!-- user name -->
+
+        <RelativeLayout
+            android:id="@+id/user_info"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:id="@+id/user_name"
+                style="@style/InsetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="小枫" />
+
+            <TextView
+                android:id="@+id/comment_time"
+                style="@style/InsetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="05-13 14:18" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/comment_context"
+            style="@style/normalText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_info"
+            android:text=".............." />
+
+        <TextView
+            android:background="#ffff99"
+            android:padding="5.0dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/comment_context"
+            android:text="@string/button_reply" />
+
+    </RelativeLayout>
+
+</LinearLayout>

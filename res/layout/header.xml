@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 顶部条 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="47dip"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/bg_header"
+    android:gravity="center_vertical" >
+
+    <!-- title -->
+
+    <TextView
+        android:id="@+id/header_title"
+        style="@style/logo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="3dip"
+        android:layout_marginTop="12dip"
+        android:background="@null"
+        android:clickable="true" />
+
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@null"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:src="@drawable/top_msg_selector" />
+
+    <ImageButton
+        android:id="@+id/map_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/edit_button"
+        android:background="@null"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:src="@drawable/map_button" />
+
+    <!-- 刷新按钮 -->
+
+
+    <!--
+    <ImageButton
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@+id/map_list_button"
+        android:background="@null"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:src="@drawable/top_refresh_selector" />
+    -->
+
+</RelativeLayout>

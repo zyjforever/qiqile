@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tweet_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/body_background"
+    android:orientation="horizontal" >
+
+    <!-- profile image -->
+
+    <ImageView
+        android:id="@+id/activity_image"
+        android:layout_width="50.0dp"
+        android:layout_height="50.0dp"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="5.0dip"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <!-- user name -->
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="10.0dp"
+                android:layout_height="10.0dp"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <!-- hasImage icon -->
+
+            <ImageView
+                android:id="@+id/tweet_has_image"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="right"
+                android:src="@drawable/pic"
+                android:visibility="gone" />
+            <!-- favorited icon -->
+
+            <ImageView
+                android:id="@+id/tweet_fav"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="right"
+                android:src="@android:drawable/star_off"
+                android:visibility="gone" />
+            <!-- retweet icon -->
+
+            <ImageView
+                android:id="@+id/tweet_retweet"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="right"
+                android:contentDescription="TODO"
+                android:src="@drawable/retweet"
+                android:visibility="gone" />
+            <!-- reply icon -->
+
+            <ImageView
+                android:id="@+id/tweet_reply"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="right"
+                android:contentDescription="TODO"
+                android:src="@drawable/reply"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/user_nick"
+                style="@style/LinkText.Bold.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/user_image"
+                android:text="小枫" />
+
+            <TextView
+                android:id="@+id/user_last_login_time"
+                style="@style/InsetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="1分钟前登录" />
+        </RelativeLayout>
+
+        <!-- activity name -->
+
+        <TextView
+            android:id="@+id/user_signature"
+            style="@style/normalText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2sp"
+            android:text="你说做这么多有用吗" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/user_age"
+                style="@style/InsetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="2sp"
+                android:text="90后" />
+
+            <TextView
+                android:id="@+id/user_sex"
+                style="@style/InsetText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:layout_toRightOf="@+id/user_age"
+                android:lineSpacingExtra="2sp"
+                android:text="帅哥" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

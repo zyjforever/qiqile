@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <!-- Header -->
+
+    <include layout="@layout/header_back" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFEFF0F4"
+        android:scrollbars="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFEFF0F4"
+            android:orientation="vertical" >
+
+            <!-- 头像部分 -->
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10.0dip"
+                android:background="#FFEFF0F4"
+                android:orientation="vertical" >
+
+                <!-- 头像图片 -->
+
+                <ImageView
+                    android:id="@+id/profileimage"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp" >
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/user_nick"
+                    style="@style/LinkText.Bold.Huge"
+                    android:layout_width="fill_parent"
+                    android:layout_height="24.0dip"
+                    android:layout_toRightOf="@id/profileimage" >
+                </TextView>
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" 
+                    android:layout_below="@+id/user_nick"
+                    android:layout_toRightOf="@id/profileimage" >
+                    
+                    <TextView
+                        android:id="@+id/user_age"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/user_sex"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                
+                 <TextView
+                    android:id="@+id/user_state"
+                    style="@style/LinkText.Bold.Huge"
+                    android:layout_width="fill_parent"
+                    android:layout_height="14.0dip"
+                    android:layout_toRightOf="@id/profileimage" 
+                    android:layout_below="@+id/LinearLayout_2" >
+                </TextView>
+                
+            </RelativeLayout>
+            
+			<RelativeLayout
+                android:id="@+id/relative_3"
+                android:layout_width="fill_parent"
+                android:layout_height="100.0dip"
+                android:layout_margin="10.0dip"
+                android:background="@drawable/panel_bg" >
+
+                <TextView
+                    android:id="@+id/user_city_title"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginTop="10.0dip"
+                    android:gravity="center_vertical"
+                    android:text="@string/user_city_title"
+                    android:textColor="#FF7D899D"
+                    android:textSize="16.0sp" >
+                </TextView>
+                <TextView
+                    android:id="@+id/user_city"
+                    style="@style/normalText.span"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/user_city_title"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_toRightOf="@+id/user_city_title"
+                    android:textSize="16.0sp" >
+                </TextView>
+                <!-- 分隔条 -->
+
+                <View
+                    android:id="@+id/view_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/horizontal_separation_line" >
+                </View>
+
+                <TextView
+                    android:id="@+id/user_signature_title"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/user_city_title"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/view_3"
+                    android:gravity="center_vertical"
+                    android:text="@string/user_signature_title"
+                    android:textColor="#FF7D899D"
+                    android:textSize="16.0sp" >
+                </TextView>
+				<TextView
+                    android:id="@+id/user_signature"
+                    style="@style/normalText.span"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/user_city_title"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_toRightOf="@+id/user_city_title"
+                    android:textSize="16.0sp" >
+                </TextView>
+            </RelativeLayout>
+       
+      
+
+            <!-- 操作按钮部分 -->
+
+            <RelativeLayout
+                android:id="@+id/relative_following"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10.0dip"
+                android:background="@drawable/panel_bg" >
+
+                <TextView
+                    android:id="@+id/isfollowing_text"
+                    style="@style/normalText.span"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:textSize="16.0sp" >
+                </TextView>
+                <!-- 关注/取消关注 按钮 -->
+
+                <Button
+                    android:id="@+id/following_btn"
+                    style="@style/Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10.0dip"
+                    android:drawablePadding="5dip"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
