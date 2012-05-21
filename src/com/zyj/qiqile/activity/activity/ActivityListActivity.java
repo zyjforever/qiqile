@@ -67,7 +67,6 @@ public class ActivityListActivity extends ActivityGroup {
 	public void refresh() {
 		//加载最新的活动
 		
-		
 	}
 
 	protected void initView() {
