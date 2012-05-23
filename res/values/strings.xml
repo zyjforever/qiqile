@@ -143,6 +143,10 @@
     <string name="refresh">刷新</string>
     <string name="profile_activity_name_title">活动主题：</string>
     <string name="join_activity">我要加入</string>
+    <string name="join_activity_comfirm_cancel">确定要取消参加吗？</string>
+    <string name="join_activity_cancel">取消参加</string>
+    <string name="join_activity_success">加入成功</string>
+    <string name="join_activity_cancel_success">已取消加入</string>
     <string name="activity_join">参加者</string>
     <string name="activity_comment">活动动态</string>
     <string name="actvity_profile">活动详情</string>

@@ -24,6 +24,7 @@ public interface ServerConstants {
 	public static final String LIST = "list/";
 	public static final String UPDATE = "update/";
 	public static final String INSERT = "insert/";
+	public static final String REMOVE = "remove/";
 
 	/** 用户模块 */
 	public static final String USER = "user/";
@@ -34,6 +35,8 @@ public interface ServerConstants {
 
 	/** 活动模块 */
 	public static final String ACTIVITY = "activity/";
+	public static final String ACTIVITY_JOIN = "activityjoin/";
 	public static final String QUERY_BY_CITY_AND_TIME = "querybycityandtime/";
+	public static final String IS_JOIN = "isjoin/";
 
 }

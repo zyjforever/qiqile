@@ -4,15 +4,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.zyj.qiqile.domain.bo.ActivityBO;
-import com.zyj.qiqile.domain.bo.UserBO;
-import com.zyj.qiqile.manager.ActivityManager;
-import com.zyj.qiqile.manager.UserManager;
-import com.zyj.qiqile.manager.impl.ActivityManagerImpl;
-import com.zyj.qiqile.manager.impl.UserManagerImpl;
-
 import android.app.Application;
 import android.content.Context;
+
+import com.zyj.qiqile.domain.bo.ActivityBO;
+import com.zyj.qiqile.domain.bo.UserBO;
+import com.zyj.qiqile.manager.ActivityJoinManager;
+import com.zyj.qiqile.manager.ActivityManager;
+import com.zyj.qiqile.manager.UserManager;
+import com.zyj.qiqile.manager.impl.ActivityJoinManagerImpl;
+import com.zyj.qiqile.manager.impl.ActivityManagerImpl;
+import com.zyj.qiqile.manager.impl.UserManagerImpl;
 
 public class QiqileApplication extends Application {
 
@@ -42,10 +44,12 @@ public class QiqileApplication extends Application {
 
 	private UserManager userManager;
 	private ActivityManager activityManager;
+	private ActivityJoinManager activityJoinManager;
 
 	private QiqileApplication() {
 		userManager = new UserManagerImpl();
 		activityManager = new ActivityManagerImpl();
+		activityJoinManager = new ActivityJoinManagerImpl();
 		activityCityMapList = new ConcurrentHashMap<String, List<List<ActivityBO>>>();
 	}
 
@@ -106,6 +110,14 @@ public class QiqileApplication extends Application {
 
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
+	}
+
+	public ActivityJoinManager getActivityJoinManager() {
+		return activityJoinManager;
+	}
+
+	public void setActivityJoinManager(ActivityJoinManager activityJoinManager) {
+		this.activityJoinManager = activityJoinManager;
 	}
 
 	public Boolean getCheckLogin() {

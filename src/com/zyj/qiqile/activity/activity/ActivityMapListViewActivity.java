@@ -2,18 +2,15 @@ package com.zyj.qiqile.activity.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.sax.StartElementListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.baidu.mapapi.GeoPoint;
@@ -47,7 +44,7 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 	private TaskListener loadActivityListener = new GenericAferExcutedListener() {
 		@Override
 		public void onPostExecute(GenericTask task, TaskResult result) {
-			if (result!=null&&result.getResult() == ResultCode.SUCCESS) {
+			if (result != null && result.getResult() == ResultCode.SUCCESS) {
 				Date atime = (Date) result.get("time");
 				int i = TimeHelper.compare(now, atime);
 				List<ActivityBO> activityBOList = (List<ActivityBO>) result
@@ -62,22 +59,21 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 								activityBO.getName());
 						overlayItemList.add(overlayItem);
 					}
-					if (mMapView.getOverlays().size() > i
-							&& mMapView.getOverlays().get(i) != null) {
-						mMapView.getOverlays().remove(i);
-						mMapView.getOverlays().add(
-								i,
-								new OverItemT(marker,
-										QiqileApplication.context,
-										overlayItemList, activityBOList));
-					} else {
-						mMapView.getOverlays().add(
-								i,
-								new OverItemT(marker,
-										QiqileApplication.context,
-										overlayItemList, activityBOList));
-						mMapView.postInvalidate();
-					}
+					/*
+					 * if (mMapView.getOverlays().size() > i &&
+					 * mMapView.getOverlays().get(i) != null) {
+					 * mMapView.getOverlays().remove(i);
+					 * mMapView.getOverlays().add( i, new OverItemT(marker,
+					 * QiqileApplication.context, overlayItemList,
+					 * activityBOList)); } else { mMapView.getOverlays().add(
+					 * new OverItemT(marker, QiqileApplication.context,
+					 * overlayItemList, activityBOList));
+					 * mMapView.postInvalidate(); }
+					 */
+					mMapView.getOverlays().add(
+							new OverItemT(marker, QiqileApplication.context,
+									overlayItemList, activityBOList));
+					mMapView.postInvalidate();
 				}
 				time = TimeHelper.getPreviewDate(time);
 			}
