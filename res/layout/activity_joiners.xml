@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <!-- Header -->
+
+    <include
+        android:layout_width="fill_parent"
+        layout="@layout/header_back" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_context"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_common" >
+        <ListView android:id="@+id/activity_joiners_view"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"/>
+    </LinearLayout>
+
+</LinearLayout>

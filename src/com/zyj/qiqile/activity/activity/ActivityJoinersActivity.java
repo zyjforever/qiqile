@@ -19,7 +19,6 @@ public class ActivityJoinersActivity extends BasicBackActivity {
 
 	@Override
 	protected void initView() {
-
 		super.initView();
 	}
 

@@ -66,7 +66,7 @@ public class LocationHelper {
 	}
 
 	public static String getCurrentCity(Context context) {
-		String city = null;
+		String city = "广州市";
 		Location location = getCurrentLocation(context);
 		if (location != null) {
 			// 获取维度信息

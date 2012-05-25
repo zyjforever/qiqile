@@ -151,6 +151,12 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		setContext();
+	}
+
+	@Override
 	protected void initListener() {
 		super.initListener();
 		joinButton.setOnClickListener(new OnClickListener() {
@@ -166,8 +172,9 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		activityJoinButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, "joinactivity", Toast.LENGTH_LONG)
-						.show();
+				Intent intent = new Intent(QiqileApplication.context,
+						ActivityJoinersActivity.class);
+				QiqileApplication.getInstance().context.startActivity(intent);
 			}
 		});
 		activityJoinCommentButton.setOnClickListener(new OnClickListener() {
