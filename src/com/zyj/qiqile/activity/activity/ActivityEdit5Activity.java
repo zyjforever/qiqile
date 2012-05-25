@@ -92,10 +92,10 @@ public class ActivityEdit5Activity extends BasicActivity {
 				result = Boolean.TRUE;
 			} else {
 				Toast.makeText(this, R.string.button_select_location,
-						Toast.LENGTH_SHORT).show();
+						Toast.LENGTH_LONG).show();
 			}
 		} else {
-			Toast.makeText(this, R.string.location_hint, Toast.LENGTH_SHORT)
+			Toast.makeText(this, R.string.location_hint, Toast.LENGTH_LONG)
 					.show();
 		}
 		return result;
