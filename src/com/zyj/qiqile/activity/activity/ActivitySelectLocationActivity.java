@@ -79,7 +79,7 @@ public class ActivitySelectLocationActivity extends BasicMapActivity {
 			public void onClick(View v) {
 				if (validate()) {
 					beforeFinish();
-					ActivitySelectLocationActivity.this.finish();// 结束当前的activity
+					finish();// 结束当前的activity
 				}
 			}
 		});
@@ -91,19 +91,24 @@ public class ActivitySelectLocationActivity extends BasicMapActivity {
 	protected Boolean validate() {
 		Boolean result = Boolean.FALSE;
 		GeoPoint p = locationOverlay.getP();
-		latitude = Double.valueOf((double) p.getLatitudeE6() / 1000000);
-		longitude = Double.valueOf((double) p.getLongitudeE6() / 1000000);
-		try {
-			city = LocationHelper.getCity(latitude.toString(),
-					longitude.toString());
-		} catch (JSONException e) {
-			Log.e(TAG, "", e);
-		}
-		if (latitude != null && longitude != null && city != null) {
-			result = Boolean.TRUE;
+		if (p != null) {
+			latitude = Double.valueOf((double) p.getLatitudeE6() / 1000000);
+			longitude = Double.valueOf((double) p.getLongitudeE6() / 1000000);
+			try {
+				city = LocationHelper.getCity(latitude.toString(),
+						longitude.toString());
+			} catch (JSONException e) {
+				Log.e(TAG, "", e);
+			}
+			if (latitude != null && longitude != null && city != null) {
+				result = Boolean.TRUE;
+			} else {
+				Toast.makeText(this, R.string.button_select_location,
+						Toast.LENGTH_SHORT).show();
+			}
 		} else {
-			Toast.makeText(this, R.string.button_select_location,
-					Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.location_hint, Toast.LENGTH_SHORT)
+					.show();
 		}
 		return result;
 	}
@@ -133,8 +138,9 @@ public class ActivitySelectLocationActivity extends BasicMapActivity {
 		// 处理当点击事件
 		public boolean onTap(GeoPoint p, MapView mapView) {
 			this.p = p;
-//			latitude = Double.valueOf((double) p.getLatitudeE6() / 1000000);
-//			longitude = Double.valueOf((double) p.getLongitudeE6() / 1000000);
+			// latitude = Double.valueOf((double) p.getLatitudeE6() / 1000000);
+			// longitude = Double.valueOf((double) p.getLongitudeE6() /
+			// 1000000);
 			// Toast.makeText(QiqileApplication.context, city,
 			// Toast.LENGTH_LONG)
 			// .show();

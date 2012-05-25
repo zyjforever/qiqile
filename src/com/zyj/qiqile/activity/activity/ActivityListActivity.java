@@ -8,7 +8,6 @@ import com.zyj.qiqile.R;
 import com.zyj.qiqile.activity.BasicMapActivity;
 import com.zyj.qiqile.app.ActivityManagerApplication;
 import com.zyj.qiqile.app.QiqileApplication;
-import com.zyj.qiqile.customview.PullToRefreshListView;
 import com.zyj.qiqile.task.GenericTask;
 import com.zyj.qiqile.task.TaskParams;
 import com.zyj.qiqile.task.TaskResult;
