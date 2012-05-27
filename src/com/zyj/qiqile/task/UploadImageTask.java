@@ -5,6 +5,7 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.zyj.qiqile.R;
@@ -13,23 +14,29 @@ import com.zyj.qiqile.task.TaskResult.ResultCode;
 import com.zyj.qiqile.tools.UploadHelper;
 
 public class UploadImageTask extends GenericTask {
+	private Context context;
+
+	public UploadImageTask() {
+		this.context = QiqileApplication.context;
+	}
+
+	public UploadImageTask(Context context) {
+		this.context = context;
+	}
+
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(
-				QiqileApplication.context,
-				QiqileApplication.context
-						.getString(R.string.upload_img_status_in),
+		Toast.makeText(context,
+				context.getString(R.string.upload_img_status_in),
 				Toast.LENGTH_LONG).show();
 	}
 
 	@Override
 	protected void onProgressUpdate(Object... values) {
 		super.onProgressUpdate(values);
-		Toast.makeText(
-				QiqileApplication.context,
-				QiqileApplication.context
-						.getString(R.string.upload_img_status_in),
+		Toast.makeText(context,
+				context.getString(R.string.upload_img_status_in),
 				Toast.LENGTH_SHORT).show();
 	}
 
@@ -60,29 +67,21 @@ public class UploadImageTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.upload_img_status_success),
+				Toast.makeText(context,
+						context.getString(R.string.upload_img_status_success),
 						Toast.LENGTH_SHORT).show();
 			} else if (resultCode == ResultCode.FAILED) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.upload_img_status_fail),
+				Toast.makeText(context,
+						context.getString(R.string.upload_img_status_fail),
 						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			Toast.makeText(
-					QiqileApplication.context,
-					QiqileApplication.context
-							.getString(R.string.upload_img_status_fail),
+			Toast.makeText(context,
+					context.getString(R.string.upload_img_status_fail),
 					Toast.LENGTH_SHORT).show();
 		}
 	}

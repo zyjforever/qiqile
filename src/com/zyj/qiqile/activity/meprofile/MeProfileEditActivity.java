@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.logging.FileHandler;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -310,11 +311,20 @@ public class MeProfileEditActivity extends BasicWriteActivity {
 
 class UpdateProfileTask extends GenericTask {
 
+	private Context context;
+
+	public UpdateProfileTask() {
+		context = QiqileApplication.context;
+	}
+
+	public UpdateProfileTask(Context context) {
+		this.context = context;
+	}
+
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(QiqileApplication.context,
-				QiqileApplication.context.getString(R.string.commit_status_in),
+		Toast.makeText(context, context.getString(R.string.commit_status_in),
 				Toast.LENGTH_LONG).show();
 	}
 
@@ -333,29 +343,22 @@ class UpdateProfileTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.commit_status_success),
+				Toast.makeText(context,
+						context.getString(R.string.commit_status_success),
 						Toast.LENGTH_SHORT).show();
 			} else if (resultCode == ResultCode.NETWORK_ERROR) {
 				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_status_network_or_connection_error),
+						context,
+						context.getString(R.string.login_status_network_or_connection_error),
 						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			Toast.makeText(
-					QiqileApplication.context,
-					QiqileApplication.context
-							.getString(R.string.commit_status_fail),
+			Toast.makeText(context,
+					context.getString(R.string.commit_status_fail),
 					Toast.LENGTH_SHORT).show();
 		}
 	}

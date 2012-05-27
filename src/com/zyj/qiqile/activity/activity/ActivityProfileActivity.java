@@ -2,6 +2,7 @@ package com.zyj.qiqile.activity.activity;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
@@ -43,7 +44,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	private ImageButton editButton;
 	private TextView joinButton;
 	private TextView activityJoinButton;
-	private TextView activityJoinCommentButton;
+	private TextView activityCommentButton;
 
 	// module
 	private CommonImageModule commonImageModule;
@@ -53,7 +54,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 
 	private GenericTask joinTask;
 	private GenericTask isJoinTask;
-	private boolean isJoin;
+	private Boolean isJoin;
 
 	@Override
 	public void init() {
@@ -77,7 +78,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		editButton = (ImageButton) findViewById(R.id.writeMessage);
 		joinButton = (TextView) findViewById(R.id.button_join);
 		activityJoinButton = (TextView) findViewById(R.id.button_activity_join);
-		activityJoinCommentButton = (TextView) findViewById(R.id.button_activity_comment);
+		activityCommentButton = (TextView) findViewById(R.id.button_activity_comment);
 		commonImageModule = new CommonImageModule(this, TAG);
 
 		// 把内容显示到view上面去
@@ -103,11 +104,17 @@ public class ActivityProfileActivity extends BasicBackActivity {
 			editButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(ActivityProfileActivity.this,
-							ActivityEdit1Activity.class);
-					QiqileApplication.getInstance().setCurrentEditActivity(
-							activityBO);
-					startActivity(intent);
+					if (QiqileApplication.getInstance().isLogin()) {
+						Intent intent = new Intent(
+								ActivityProfileActivity.this,
+								ActivityEdit1Activity.class);
+						QiqileApplication.getInstance().setCurrentEditActivity(
+								activityBO);
+						startActivity(intent);
+					} else {
+						Toast.makeText(context, R.string.please_login,
+								Toast.LENGTH_SHORT).show();
+					}
 				}
 			});
 		}
@@ -162,7 +169,10 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		joinButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (isJoin) {
+				if (isJoin == null) {
+					Toast.makeText(context, R.string.please_login,
+							Toast.LENGTH_SHORT).show();
+				} else if (isJoin) {
 					comfirmCancelJoin();
 				} else {
 					join();
@@ -174,20 +184,21 @@ public class ActivityProfileActivity extends BasicBackActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(QiqileApplication.context,
 						ActivityJoinersActivity.class);
-				QiqileApplication.getInstance().context.startActivity(intent);
+				startActivity(intent);
 			}
 		});
-		activityJoinCommentButton.setOnClickListener(new OnClickListener() {
+		activityCommentButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, "activitycomment", Toast.LENGTH_LONG)
-						.show();
+				Intent intent = new Intent(ActivityProfileActivity.this,
+						ActivityCommentListActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
 
 	private void join() {
-		joinTask = new JoinTask();
+		joinTask = new JoinTask(this);
 		TaskParams params = new TaskParams();
 		activityJoinBO = new ActivityJoinBO();
 		activityJoinBO.setActivityId(activityBO.getId());
@@ -197,7 +208,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	}
 
 	private void cancelJoin() {
-		joinTask = new CancelJoinTask();
+		joinTask = new CancelJoinTask(this);
 		TaskParams params = new TaskParams();
 		activityJoinBO = new ActivityJoinBO();
 		activityJoinBO.setActivityId(activityBO.getId());
@@ -206,14 +217,27 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		joinTask.execute(params);
 	}
 
+	//显示按钮
 	private void isJoin() {
-		isJoinTask = new IsJoinTask();
-		TaskParams params = new TaskParams();
-		activityJoinBO = new ActivityJoinBO();
-		activityJoinBO.setActivityId(activityBO.getId());
-		activityJoinBO.setUserId(userBO.getId());
-		params.put("activityJoinBo", activityJoinBO);
-		isJoinTask.execute(params);
+		if (QiqileApplication.getInstance().isLogin()) {
+			if (activityBO.getIsJoin() == null) {
+				isJoinTask = new IsJoinTask(this);
+				TaskParams params = new TaskParams();
+				activityJoinBO = new ActivityJoinBO();
+				activityJoinBO.setActivityId(activityBO.getId());
+				activityJoinBO.setUserId(userBO.getId());
+				params.put("activityJoinBo", activityJoinBO);
+				isJoinTask.execute(params);
+			} else if (activityBO.getIsJoin()) {
+				isJoin = activityBO.getIsJoin();
+				getJoinButton().setText(R.string.join_activity_cancel);
+
+			} else {
+				getJoinButton().setText(R.string.join_activity);
+			}
+		} else {
+			getJoinButton().setText(R.string.join_activity);
+		}
 	}
 
 	protected void comfirmCancelJoin() {
@@ -249,131 +273,137 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		this.isJoin = isJoin;
 	}
 
-}
+	class JoinTask extends GenericTask {
+		private Context context;
 
-class JoinTask extends GenericTask {
-
-	@Override
-	protected TaskResult _doInBackground(TaskParams... params) {
-		ActivityJoinManager activityJoinManager = QiqileApplication
-				.getInstance().getActivityJoinManager();
-		TaskResult taskResult = activityJoinManager
-				.join((ActivityJoinBO) params[0].get("activityJoinBo"));
-		return taskResult;
-	}
-
-	@Override
-	protected void onPostExecute(TaskResult result) {
-		super.onPostExecute(result);
-		if (result != null) {
-			ResultCode resultCode = result.getResult();
-			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.join_activity_success),
-						Toast.LENGTH_SHORT).show();
-				((ActivityProfileActivity) QiqileApplication.context)
-						.setIsJoin(true);
-				((ActivityProfileActivity) QiqileApplication.context)
-						.getJoinButton().setText(R.string.join_activity_cancel);
-			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
-						Toast.LENGTH_SHORT).show();
-			}
-		} else {
-			Toast.makeText(QiqileApplication.context,
-					QiqileApplication.context.getString(R.string.error_unknow),
-					Toast.LENGTH_SHORT).show();
+		public JoinTask(Context context) {
+			this.context = context;
 		}
-	}
-}
 
-class CancelJoinTask extends GenericTask {
-
-	@Override
-	protected TaskResult _doInBackground(TaskParams... params) {
-		ActivityJoinManager activityJoinManager = QiqileApplication
-				.getInstance().getActivityJoinManager();
-		TaskResult taskResult = activityJoinManager
-				.cancelJoin((ActivityJoinBO) params[0].get("activityJoinBo"));
-		return taskResult;
-	}
-
-	@Override
-	protected void onPostExecute(TaskResult result) {
-		super.onPostExecute(result);
-		if (result != null) {
-			ResultCode resultCode = result.getResult();
-			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.join_activity_cancel_success),
-						Toast.LENGTH_SHORT).show();
-				((ActivityProfileActivity) QiqileApplication.context)
-						.setIsJoin(false);
-				((ActivityProfileActivity) QiqileApplication.context)
-						.getJoinButton().setText(R.string.join_activity);
-			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
-						Toast.LENGTH_SHORT).show();
-			}
-		} else {
-			Toast.makeText(QiqileApplication.context,
-					QiqileApplication.context.getString(R.string.error_unknow),
-					Toast.LENGTH_SHORT).show();
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			ActivityJoinManager activityJoinManager = QiqileApplication
+					.getInstance().getActivityJoinManager();
+			TaskResult taskResult = activityJoinManager
+					.join((ActivityJoinBO) params[0].get("activityJoinBo"));
+			return taskResult;
 		}
-	}
-}
 
-class IsJoinTask extends GenericTask {
-
-	@Override
-	protected TaskResult _doInBackground(TaskParams... params) {
-		ActivityJoinManager activityJoinManager = QiqileApplication
-				.getInstance().getActivityJoinManager();
-		TaskResult taskResult = activityJoinManager
-				.isJoin((ActivityJoinBO) params[0].get("activityJoinBo"));
-		return taskResult;
-	}
-
-	@Override
-	protected void onPostExecute(TaskResult result) {
-		super.onPostExecute(result);
-		if (result != null) {
-			ResultCode resultCode = result.getResult();
-			if (resultCode == ResultCode.SUCCESS) {
-				if (result.get("data").equals("1")) {
-					((ActivityProfileActivity) QiqileApplication.context)
-							.setIsJoin(true);
-					((ActivityProfileActivity) QiqileApplication.context)
-							.getJoinButton().setText(
-									R.string.join_activity_cancel);
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			super.onPostExecute(result);
+			if (result != null) {
+				ResultCode resultCode = result.getResult();
+				if (resultCode == ResultCode.SUCCESS) {
+					Toast.makeText(context,
+							context.getString(R.string.join_activity_success),
+							Toast.LENGTH_SHORT).show();
+					((ActivityProfileActivity) context).getJoinButton()
+							.setText(R.string.join_activity_cancel);
 				} else {
-					((ActivityProfileActivity) QiqileApplication.context)
-							.setIsJoin(false);
-					((ActivityProfileActivity) QiqileApplication.context)
-							.getJoinButton().setText(R.string.join_activity);
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
+							Toast.LENGTH_SHORT).show();
 				}
 			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
 						Toast.LENGTH_SHORT).show();
 			}
-		} else {
-			Toast.makeText(QiqileApplication.context,
-					QiqileApplication.context.getString(R.string.error_unknow),
-					Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	class CancelJoinTask extends GenericTask {
+
+		private Context context;
+
+		public CancelJoinTask(Context context) {
+			this.context = context;
+		}
+
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			ActivityJoinManager activityJoinManager = QiqileApplication
+					.getInstance().getActivityJoinManager();
+			TaskResult taskResult = activityJoinManager
+					.cancelJoin((ActivityJoinBO) params[0]
+							.get("activityJoinBo"));
+			return taskResult;
+		}
+
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			super.onPostExecute(result);
+			if (result != null) {
+				ResultCode resultCode = result.getResult();
+				if (resultCode == ResultCode.SUCCESS) {
+					Toast.makeText(
+							context,
+							context.getString(R.string.join_activity_cancel_success),
+							Toast.LENGTH_SHORT).show();
+					((ActivityProfileActivity) context).getJoinButton()
+							.setText(R.string.join_activity);
+				} else {
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
+							Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+
+	}
+
+	/** 判断用户是否加入了这个活动，仅在用户第一次查看本活动时候加载 **/
+	class IsJoinTask extends GenericTask {
+		private Context context;
+
+		public IsJoinTask(Context context) {
+			this.context = context;
+		}
+
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			ActivityJoinManager activityJoinManager = QiqileApplication
+					.getInstance().getActivityJoinManager();
+			TaskResult taskResult = activityJoinManager
+					.isJoin((ActivityJoinBO) params[0].get("activityJoinBo"));
+			return taskResult;
+		}
+
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			super.onPostExecute(result);
+			if (result != null) {
+				ResultCode resultCode = result.getResult();
+				if (resultCode == ResultCode.SUCCESS) {
+					if (result.get("data").equals("1")) {
+						((ActivityProfileActivity) context).setIsJoin(true);
+						((ActivityProfileActivity) context).getJoinButton()
+								.setText(R.string.join_activity_cancel);
+						activityBO.setIsJoin(Boolean.TRUE);
+
+					} else {
+						((ActivityProfileActivity) context).setIsJoin(false);
+						((ActivityProfileActivity) context).getJoinButton()
+								.setText(R.string.join_activity);
+						activityBO.setIsJoin(Boolean.FALSE);
+					}
+				} else {
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
+							Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+
 	}
 
 }

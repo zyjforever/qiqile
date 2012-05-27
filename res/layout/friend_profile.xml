@@ -45,8 +45,8 @@
                     style="@style/normalText.Big"
                     android:layout_width="fill_parent"
                     android:layout_height="24.0dip"
-                    android:layout_toRightOf="@+id/user_image"
-                    android:text="小枫" >
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_toRightOf="@+id/user_image" >
                 </TextView>
 
                 <LinearLayout
@@ -54,6 +54,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/user_nick"
+                    android:layout_marginLeft="10.0dip"
                     android:layout_toRightOf="@+id/user_image"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
@@ -62,16 +63,14 @@
                         android:id="@+id/user_age"
                         style="@style/normalText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="80后" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:id="@+id/user_sex"
                         style="@style/normalText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5.0dip"
-                        android:text="帅哥" />
+                        android:layout_marginLeft="5.0dip" />
                 </LinearLayout>
 
                 <TextView
@@ -80,8 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/LinearLayout_2"
-                    android:layout_toRightOf="@+id/user_image"
-                    android:text="三分钟前登录" >
+                    android:layout_toRightOf="@+id/user_image" >
                 </TextView>
             </RelativeLayout>
 
@@ -115,7 +113,6 @@
                     android:layout_alignTop="@+id/user_city_title"
                     android:layout_marginLeft="10.0dip"
                     android:layout_toRightOf="@+id/user_city_title"
-                    android:text="广州市"
                     android:textSize="16.0sp" >
                 </TextView>
                 <!-- 分隔条 -->
@@ -150,7 +147,6 @@
                     android:layout_alignBaseline="@+id/user_signature_title"
                     android:layout_alignBottom="@+id/user_signature_title"
                     android:layout_alignLeft="@+id/user_city"
-                    android:text="发烧真的好辛苦啊"
                     android:textSize="16.0sp" />
             </RelativeLayout>
             <!-- 操作按钮部分 -->
@@ -161,7 +157,7 @@
                 android:layout_margin="10.0dip" >
 
                 <Button
-                    android:id="@+id/button_join"
+                    android:id="@+id/button_add_friend"
                     style="@style/blue_button"
                     android:layout_width="150.0dip"
                     android:layout_height="fill_parent"

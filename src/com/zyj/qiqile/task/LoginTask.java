@@ -2,6 +2,7 @@ package com.zyj.qiqile.task;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -16,6 +17,16 @@ import com.zyj.qiqile.task.TaskResult.ResultCode;
 /** µÇÂ¼µ½·þÎñÆ÷ */
 public class LoginTask extends GenericTask {
 
+	private Context context;
+
+	public LoginTask() {
+		this.context = QiqileApplication.context;
+	}
+	
+	public LoginTask(Context context){
+		this.context = context;
+	}
+	
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();

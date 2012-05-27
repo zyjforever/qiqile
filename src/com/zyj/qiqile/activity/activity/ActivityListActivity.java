@@ -1,14 +1,9 @@
 package com.zyj.qiqile.activity.activity;
 
-import java.util.List;
-
-import org.json.JSONException;
 
 import com.zyj.qiqile.R;
-import com.zyj.qiqile.activity.BasicMapActivity;
 import com.zyj.qiqile.app.ActivityManagerApplication;
 import com.zyj.qiqile.app.QiqileApplication;
-import com.zyj.qiqile.customview.PullToRefreshListView;
 import com.zyj.qiqile.task.GenericTask;
 import com.zyj.qiqile.task.TaskParams;
 import com.zyj.qiqile.task.TaskResult;
@@ -17,11 +12,7 @@ import com.zyj.qiqile.tools.LocationHelper;
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -37,7 +28,7 @@ public class ActivityListActivity extends ActivityGroup {
 	private LinearLayout containerBody;
 	private ImageButton editButton;
 	private ImageButton mapListButton;
-//	private ImageButton refreshButton;
+	// private ImageButton refreshButton;
 	private TextView locationView;
 
 	// Task
@@ -65,27 +56,28 @@ public class ActivityListActivity extends ActivityGroup {
 	}
 
 	public void refresh() {
-		//加载最新的活动
-		
+		// 加载最新的活动
+
 	}
 
 	protected void initView() {
 		headerTitle = (TextView) findViewById(R.id.header_title);
 		editButton = (ImageButton) findViewById(R.id.edit_button);
 		mapListButton = (ImageButton) findViewById(R.id.map_list_button);
-//		refreshButton = (ImageButton) findViewById(R.id.refresh_button);
+		// refreshButton = (ImageButton) findViewById(R.id.refresh_button);
 		containerBody = (LinearLayout) findViewById(R.id.containerBody);
 		locationView = (TextView) findViewById(R.id.location);
-		
+
 		if (QiqileApplication.getInstance().getCity() != null) {
 			locationView.setText(QiqileApplication.getInstance().getCity());
 		} else {
 			loadCityTask = new GenericTask() {
+				Context context = QiqileApplication.context;
+
 				@Override
 				protected TaskResult _doInBackground(TaskParams... params) {
 					TaskResult taskResult = new TaskResult();
-					String city = LocationHelper
-							.getCurrentCity(QiqileApplication.context);
+					String city = LocationHelper.getCurrentCity(context);
 					taskResult.put("city", city);
 					return taskResult;
 				}

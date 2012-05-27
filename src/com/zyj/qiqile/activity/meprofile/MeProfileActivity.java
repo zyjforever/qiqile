@@ -141,8 +141,8 @@ public class MeProfileActivity extends BasicMainActivity {
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
+	protected void onRestart() {
+		super.onRestart();
 		refresh();
 	}
 

@@ -16,9 +16,7 @@ public interface ActivityJoinManager {
 	TaskResult isJoin(ActivityJoinBO activityJoinBO);
 
 	/** 列出所有参加者 */
-	TaskResult activityJoin(ActivityJoinBO activityJoinBO);
+	TaskResult queryActivityJoinBOByActivityId(String activityId);
 
-	/** 活动动态 */
-	TaskResult activityComment(ActivityJoinBO activityJoinBO);
 
 }

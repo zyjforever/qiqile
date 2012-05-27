@@ -13,6 +13,8 @@
     <string name="error_different_password">两次输入密码不一致</string>
     <string name="error_password">密码应该为5~20个字符</string>
     <string name="error_unknow">未知错误</string>
+    <string name="error_activity_comment_too_long">评论长度应当在140个字以内</string>
+    <string name="error_is_yourself">这是你自己哦！</string>
     <!-- 按钮提示 -->
     <string name="page_label_get_more">获取更多</string>
     <string name="page_label_go_back">返回</string>
@@ -166,12 +168,13 @@
     <string name="people_limit_ten_string">本活动限10人以内报名</string>
     <string name="people_limit_twenty_string">本活动限20人以内报名</string>
     <string name="people_limit_fifty_string">本活动限50人以内报名</string>
-    <string name="send_hint">请输入</string>
+    <string name="send_hint">请输入需要回复的内容…</string>
     <string name="current_account">当前登录的账号是：</string>
     <string name="add_friend">加为好友</string>
     <string name="add_activity_image">请添加一张海报吧！</string>
     <string name="activity_preview">预览</string>
     <string name="load">加载</string>
+    
     <!-- EditText hint -->
     <string name="nick_hint">请输入昵称</string>
     <string name="signature_hint">请输入签名</string>

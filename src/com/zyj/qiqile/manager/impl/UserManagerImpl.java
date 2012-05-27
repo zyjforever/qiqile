@@ -205,13 +205,9 @@ public class UserManagerImpl extends BasicManageImpl implements UserManager {
 				int errorCode = jsonObject.getInt(ServerConstants.ERROR_CODE);
 				if (errorCode == ServerErrorConstants.CODE_SUCCESS) {
 					result.setResult(ResultCode.SUCCESS);
-					result.put(
-							TOKEN,
-							jsonObject.getJSONObject(ServerConstants.DATA).get(
-									TOKEN));
 					try {
-						result.put("user",
-								UserConverter.jsonTOUserBO(jsonObject));
+						result.put("userBO",
+								UserConverter.jsonTOUserBO2(jsonObject));
 					} catch (UnsupportedEncodingException e) {
 						Log.e(TAG, "queryUserBOById", e);
 					}

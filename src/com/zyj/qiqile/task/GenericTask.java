@@ -51,8 +51,6 @@ public abstract class GenericTask extends
 			taskListener.onCancelled(this);
 		}
 		Log.d(TAG, taskListener.getName() + " has been Cancelled.");
-		Toast.makeText(QiqileApplication.context, taskListener.getName()
-				+ " has been cancelled", Toast.LENGTH_SHORT);
 	}
 
 	@Override

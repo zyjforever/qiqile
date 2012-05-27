@@ -30,6 +30,8 @@ public class ActivityEdit5Activity extends BasicActivity {
 	public void init() {
 		activityBO = QiqileApplication.getInstance().getCurrentEditActivity();
 		location = activityBO.getLocation();
+		latitude = activityBO.getLatitude();
+		longitude = activityBO.getLongitude();
 		super.init();
 	}
 

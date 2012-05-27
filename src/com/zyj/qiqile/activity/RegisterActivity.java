@@ -14,6 +14,7 @@ import com.zyj.qiqile.tools.MD5Helper;
 import com.zyj.qiqile.tools.Validator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -107,13 +108,21 @@ public class RegisterActivity extends BasicWriteActivity {
 
 	class RegisterTask extends GenericTask {
 
+		private Context context;
+
+		public RegisterTask() {
+			context = QiqileApplication.context;
+		}
+
+		public RegisterTask(Context context) {
+			this.context = context;
+		}
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			Toast.makeText(
-					QiqileApplication.context,
-					QiqileApplication.context
-							.getString(R.string.register_status_in),
+			Toast.makeText(context,
+					context.getString(R.string.register_status_in),
 					Toast.LENGTH_SHORT).show();
 		}
 
@@ -122,9 +131,9 @@ public class RegisterActivity extends BasicWriteActivity {
 			UserManager userManager = QiqileApplication.getInstance()
 					.getUserManager();
 			TaskResult taskResult = userManager.register(
-					(String)params[0].get(UserBO.EMAIL),
-					MD5Helper.MD5((String)params[0].get(UserBO.PASSWORD)),
-					(String)params[0].get(UserBO.NICK));
+					(String) params[0].get(UserBO.EMAIL),
+					MD5Helper.MD5((String) params[0].get(UserBO.PASSWORD)),
+					(String) params[0].get(UserBO.NICK));
 			return taskResult;
 		}
 
@@ -134,36 +143,30 @@ public class RegisterActivity extends BasicWriteActivity {
 				ResultCode resultCode = result.getResult();
 				if (resultCode == ResultCode.SUCCESS) {
 					Toast.makeText(
-							QiqileApplication.context,
-							QiqileApplication.context
-									.getString(R.string.register_status_success),
+							context,
+							context.getString(R.string.register_status_success),
 							Toast.LENGTH_SHORT).show();
-					((Activity)QiqileApplication.context).finish();
+					((Activity) context).finish();
 				} else if (resultCode == ResultCode.NETWORK_ERROR) {
 					Toast.makeText(
-							QiqileApplication.context,
-							QiqileApplication.context
-									.getString(R.string.login_status_network_or_connection_error),
+							context,
+							context.getString(R.string.login_status_network_or_connection_error),
 							Toast.LENGTH_SHORT).show();
 				} else if (resultCode == ResultCode.FAILED
 						&& result.getErrorCode() == ServerErrorConstants.ERROR_EMAIL_UNQUE) {
 					Toast.makeText(
-							QiqileApplication.context,
-							QiqileApplication.context
-									.getString(R.string.register_status_fail_email),
+							context,
+							context.getString(R.string.register_status_fail_email),
 							Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(
-							QiqileApplication.context,
-							QiqileApplication.context
-									.getString(R.string.error_unknow),
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
 							Toast.LENGTH_SHORT).show();
 				}
 			} else {
 				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_status_invalid_username_or_password),
+						context,
+						context.getString(R.string.login_status_invalid_username_or_password),
 						Toast.LENGTH_SHORT).show();
 			}
 

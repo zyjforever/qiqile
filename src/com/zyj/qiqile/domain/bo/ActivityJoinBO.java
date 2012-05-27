@@ -1,5 +1,7 @@
 package com.zyj.qiqile.domain.bo;
 
+import com.zyj.qiqile.domain.vo.UserVO;
+
 public class ActivityJoinBO {
 
 	public static final String ID = "id";
@@ -12,6 +14,8 @@ public class ActivityJoinBO {
 	private String userId;
 	private String attribute;
 
+	private final UserVO userVO=new UserVO();
+	
 	public String getId() {
 		return id;
 	}
@@ -42,6 +46,10 @@ public class ActivityJoinBO {
 
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
+	}
+
+	public UserVO getUserVO() {
+		return userVO;
 	}
 
 }

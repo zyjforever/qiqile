@@ -1,5 +1,7 @@
 package com.zyj.qiqile.tools;
 
+import com.zyj.qiqile.constant.Constants;
+
 public class Validator {
 	public static final String REG_EMAIL = "^[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)";
 	public static final String REG_MD5_32 = "[a-zA-Z0-9]{32}";
@@ -35,5 +37,10 @@ public class Validator {
 			result = password.matches(REG_MD5_32);
 		}
 		return result;
+	}
+
+	public static final boolean isActivityComment(String comment) {
+		return comment != null && comment.length() > 0
+				&& comment.length() <= Constants.ACTIVITY_COMMENT_MAXSIZE;
 	}
 }

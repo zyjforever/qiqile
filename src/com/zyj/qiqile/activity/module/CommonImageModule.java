@@ -16,6 +16,7 @@ import com.zyj.qiqile.constant.Constants;
 import com.zyj.qiqile.task.DownloadImageTask;
 import com.zyj.qiqile.task.GenericAferExcutedListener;
 import com.zyj.qiqile.task.GenericTask;
+import com.zyj.qiqile.task.SimpleDownloadImageTask;
 import com.zyj.qiqile.task.TaskParams;
 import com.zyj.qiqile.task.TaskResult;
 import com.zyj.qiqile.task.TaskResult.ResultCode;
@@ -312,6 +313,30 @@ public class CommonImageModule {
 				showImage(v, file);
 			} else {
 				GenericTask downloadTask = new DownloadImageTask();
+				TaskParams params = new TaskParams();
+				params.put("file", file);
+				params.put("url", url);
+				downloadTask.setListener(new GenericAferExcutedListener() {
+					@Override
+					public void onPostExecute(GenericTask task,
+							TaskResult result) {
+						if (result.getResult() == ResultCode.SUCCESS)
+							showImage(v, file);
+					}
+				});
+				downloadTask.execute(params);
+			}
+		}
+	}
+	
+	
+	/** 显示图片,如果目标文件不存在，就去源地址下载;下载失败，就用默认图像(没有提示版本) */
+	public void showImageWithNoAlert(final ImageView v, final File file, String url) {
+		if (v != null) {
+			if (file != null && file.exists()) {
+				showImage(v, file);
+			} else {
+				GenericTask downloadTask = new SimpleDownloadImageTask();
 				TaskParams params = new TaskParams();
 				params.put("file", file);
 				params.put("url", url);

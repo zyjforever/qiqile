@@ -38,5 +38,7 @@ public interface ServerConstants {
 	public static final String ACTIVITY_JOIN = "activityjoin/";
 	public static final String QUERY_BY_CITY_AND_TIME = "querybycityandtime/";
 	public static final String IS_JOIN = "isjoin/";
+	public static final String ACTIVITY_COMMENT="activitycomment/";
+	public static final String QUERY_BY_ACTIVITYID="querybyactivityid/";
 
 }

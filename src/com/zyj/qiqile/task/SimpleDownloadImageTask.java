@@ -3,6 +3,7 @@ package com.zyj.qiqile.task;
 import java.io.File;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.zyj.qiqile.R;
@@ -10,30 +11,28 @@ import com.zyj.qiqile.app.QiqileApplication;
 import com.zyj.qiqile.task.TaskResult.ResultCode;
 import com.zyj.qiqile.tools.DownloadHelper;
 
-public class DownloadImageTask extends GenericTask {
+public class SimpleDownloadImageTask extends GenericTask {
+
+	public static final String TAG = "SimpleDownloadImageTask";
 
 	private Context context;
 
-	public DownloadImageTask() {
+	public SimpleDownloadImageTask() {
 		this.context = QiqileApplication.context;
 	}
 
-	public DownloadImageTask(Context context) {
+	public SimpleDownloadImageTask(Context context) {
 		this.context = context;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(context, context.getString(R.string.status_loading),
-				Toast.LENGTH_LONG).show();
 	}
 
 	@Override
 	protected void onProgressUpdate(Object... values) {
 		super.onProgressUpdate(values);
-		Toast.makeText(context, context.getString(R.string.status_loading),
-				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -45,7 +44,6 @@ public class DownloadImageTask extends GenericTask {
 		if (result) {
 			taskResult.setResult(ResultCode.SUCCESS);
 			taskResult.put("picUrl", result);
-
 		}
 		return taskResult;
 	}
@@ -56,21 +54,14 @@ public class DownloadImageTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(context,
-						context.getString(R.string.status_success),
-						Toast.LENGTH_SHORT).show();
+				Log.i(TAG, "load image success");
 			} else if (resultCode == ResultCode.FAILED) {
-				Toast.makeText(context,
-						context.getString(R.string.status_fail),
-						Toast.LENGTH_SHORT).show();
+				Log.w(TAG, "load image failed");
 			} else {
-				Toast.makeText(context,
-						context.getString(R.string.error_unknow),
-						Toast.LENGTH_SHORT).show();
+				Log.w(TAG, "load image failed");
 			}
 		} else {
-			Toast.makeText(context, context.getString(R.string.status_fail),
-					Toast.LENGTH_SHORT).show();
+			Log.i(TAG, "load image failed");
 		}
 	}
 

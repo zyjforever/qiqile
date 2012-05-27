@@ -25,6 +25,7 @@ public class BasicMapActivity extends MapActivity {
 	protected MyLocationOverlay mLocationOverlay; // 定位图层
 	protected BMapManagerApplication bMapManagerApplication;
 	protected ImageButton locationButton;// 定位重新加载地图
+	protected Location myLocation;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,11 +96,12 @@ public class BasicMapActivity extends MapActivity {
 
 	protected void reloadLocation(Location location) {
 		if (location != null) {
-			// GeoPoint pt = new GeoPoint((int) (location.getLatitude() * 1e6),
-			// (int) (location.getLongitude() * 1e6));
+			myLocation = location;
+			GeoPoint pt = new GeoPoint((int) (location.getLatitude() * 1e6),
+					(int) (location.getLongitude() * 1e6));
 
-			GeoPoint pt = new GeoPoint((int) (37.422006D * 1e6),
-					(int) (-122.084095D * 1e6));
+			// GeoPoint pt = new GeoPoint((int) (37.422006D * 1e6),
+			// // (int) (-122.084095D * 1e6));
 			mMapView.getController().animateTo(pt);
 		}
 	}

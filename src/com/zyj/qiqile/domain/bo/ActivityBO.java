@@ -2,11 +2,9 @@ package com.zyj.qiqile.domain.bo;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class ActivityBO{
+public class ActivityBO {
 
 	public static final String ID = "id";
 	public static final String NAME = "name";
@@ -23,10 +21,10 @@ public class ActivityBO{
 	public static final String CITY = "city";
 	public static final String USERID = "userId";
 	public static final String TIME = "time";
-	
-	public static final String USERNAME="userName";
-	public static final String USERPICNAME="userPicName";
-	public static final String USERPICURL="userPicUrl";
+
+	public static final String USERNAME = "userName";
+	public static final String USERPICNAME = "userPicName";
+	public static final String USERPICURL = "userPicUrl";
 	public static final String JCOUNT = "jcount";
 	public static final String CCOUNT = "ccount";
 
@@ -55,6 +53,11 @@ public class ActivityBO{
 	private File picFile;
 	private Boolean newPic;
 
+	private List<ActivityJoinBO> activityJoinBOList;
+	private List<ActivityCommentBO> activityCommentBOList;
+
+	private Boolean isJoin;
+	
 	public Boolean getNewPic() {
 		return newPic;
 	}
@@ -222,5 +225,30 @@ public class ActivityBO{
 	public void setCcount(Integer ccount) {
 		this.ccount = ccount;
 	}
-	
+
+	public List<ActivityJoinBO> getActivityJoinBOList() {
+		return activityJoinBOList;
+	}
+
+	public void setActivityJoinBOList(List<ActivityJoinBO> activityJoinBOList) {
+		this.activityJoinBOList = activityJoinBOList;
+	}
+
+	public List<ActivityCommentBO> getActivityCommentBOList() {
+		return activityCommentBOList;
+	}
+
+	public void setActivityCommentBOList(
+			List<ActivityCommentBO> activityCommentBOList) {
+		this.activityCommentBOList = activityCommentBOList;
+	}
+
+	public Boolean getIsJoin() {
+		return isJoin;
+	}
+
+	public void setIsJoin(Boolean isJoin) {
+		this.isJoin = isJoin;
+	}
+
 }

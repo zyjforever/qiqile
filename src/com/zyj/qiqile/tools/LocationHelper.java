@@ -22,6 +22,7 @@ import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.util.Log;
 
 public class LocationHelper {
@@ -44,6 +45,8 @@ public class LocationHelper {
 	public final static String ADDRESSLINE = "AddressLine";
 	public final static String DEPENDENT_LOCALITY_NAME = "DependentLocalityName";
 
+	public final static double MILE_TO_KILOMETER=1.609344;
+	
 	public static Location getCurrentLocation(Context context) {
 		Location location = null;
 		LocationManager lm = (LocationManager) context
@@ -165,5 +168,13 @@ public class LocationHelper {
 			return null;
 		}
 		return addr;
+	}
+
+	/** 获得两点间距离，单位：米*/
+	public static double getDistance(double lat1, double lon1, double lat2,
+			double lon2) {
+		float[] results = new float[1];
+		Location.distanceBetween(lat1, lon1, lat2, lon2, results);
+		return results[0];
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.zyj.qiqile.R;
@@ -15,19 +16,28 @@ import com.zyj.qiqile.task.TaskResult.ResultCode;
 import com.zyj.qiqile.tools.TimeHelper;
 
 public class LoadLastestActivityTask extends GenericTask {
+
+	private Context context;
+
+	public LoadLastestActivityTask() {
+		this.context = QiqileApplication.context;
+	}
+	
+	public LoadLastestActivityTask(Context context){
+		this.context = context;
+	}
+
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(QiqileApplication.context,
-				QiqileApplication.context.getString(R.string.status_loading),
+		Toast.makeText(context, context.getString(R.string.status_loading),
 				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	protected void onProgressUpdate(Object... values) {
 		super.onProgressUpdate(values);
-		Toast.makeText(QiqileApplication.context,
-				QiqileApplication.context.getString(R.string.status_loading),
+		Toast.makeText(context, context.getString(R.string.status_loading),
 				Toast.LENGTH_SHORT).show();
 	}
 
@@ -50,10 +60,8 @@ public class LoadLastestActivityTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.status_success),
+				Toast.makeText(context,
+						context.getString(R.string.status_success),
 						Toast.LENGTH_SHORT).show();
 				List<ActivityBO> activityBOList = (List<ActivityBO>) result
 						.get("activityBOList");
@@ -76,29 +84,23 @@ public class LoadLastestActivityTask extends GenericTask {
 					else
 						cityActivityList.add(activityBOList);
 				} else {
-					Toast.makeText(
-							QiqileApplication.context,
-							QiqileApplication.context
-									.getString(R.string.activity_status_empty),
+					Toast.makeText(context,
+							context.getString(R.string.activity_status_empty),
 							Toast.LENGTH_SHORT).show();
 				}
 
 			} else if (resultCode == ResultCode.NETWORK_ERROR) {
 				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_status_network_or_connection_error),
+						context,
+						context.getString(R.string.login_status_network_or_connection_error),
 						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			Toast.makeText(QiqileApplication.context,
-					QiqileApplication.context.getString(R.string.error_unknow),
+			Toast.makeText(context, context.getString(R.string.error_unknow),
 					Toast.LENGTH_SHORT).show();
 		}
 	}

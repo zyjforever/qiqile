@@ -61,6 +61,48 @@ public class UserConverter {
 		return userBO;
 	}
 
+	public static UserBO jsonTOUserBO2(JSONObject jsonObject)
+			throws JSONException, UnsupportedEncodingException {
+		UserBO userBO = null;
+		if (jsonObject != null && !jsonObject.isNull(ServerConstants.DATA)) {
+			userBO = new UserBO();
+			JSONObject userJSON = jsonObject
+					.getJSONObject(ServerConstants.DATA);
+			if (!userJSON.isNull(UserBO.ID)) {
+				userBO.setId(userJSON.getString(UserBO.ID));
+			}
+			if (!userJSON.isNull(UserBO.NICK)) {
+				userBO.setNick(userJSON.getString(UserBO.NICK));
+			}
+			if (!userJSON.isNull(UserBO.EMAIL)) {
+				userBO.setEmail(userJSON.getString(UserBO.EMAIL));
+			}
+			if (!userJSON.isNull(UserBO.BIRTHDAY)) {
+				userBO.setBirthday(new Date(TimeHelper.getSqlDateFromString(
+						userJSON.getString(UserBO.BIRTHDAY)).getTime()));
+			}
+			if (!userJSON.isNull(UserBO.SEX)) {
+				userBO.setSex(userJSON.getInt(UserBO.SEX));
+			}
+			if (!userJSON.isNull(UserBO.SIGNATURE)) {
+				userBO.setSignature(userJSON.getString(UserBO.SIGNATURE));
+			}
+			if (!userJSON.isNull(UserBO.PICURL)) {
+				userBO.setPicUrl(userJSON.getString(UserBO.PICURL));
+			}
+			if (!userJSON.isNull(UserBO.PICNAME)) {
+				userBO.setPicName(userJSON.getString(UserBO.PICNAME));
+			}
+			if (!userJSON.isNull(UserBO.CITY)) {
+				userBO.setCity(userJSON.getString(UserBO.CITY));
+			}
+			if (!userJSON.isNull(UserBO.PASSWORD)) {
+				userBO.setPassword(userJSON.getString(UserBO.PASSWORD));
+			}
+		}
+		return userBO;
+	}
+
 	public static Map<String, String> userBOTOMap(UserBO userBO) {
 		Map<String, String> params = null;
 		if (userBO != null) {

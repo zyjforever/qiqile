@@ -133,6 +133,22 @@ public class UserBO {
 		}
 		return result;
 	}
+	
+	public static String getSexString(int sex) {
+		String result = "";
+			switch (sex) {
+			case 1:
+				result = "帅哥";
+				break;
+			case 0:
+				result = "美女";
+				break;
+			case -1:
+				result = "其他";
+				break;
+			}
+		return result;
+	}
 
 	public String getAgeString() {
 		String result = "";
@@ -144,5 +160,17 @@ public class UserBO {
 				result = String.valueOf((year - 1900) / 10 * 10);
 		}
 		return result + "后";
+	}
+	
+	public static String getAgeString(Date date) {
+		String result = "";
+		if (date != null) {
+			int year = date.getYear()+1900;
+			if (year >= 2000)
+				result = "00";
+			else
+				result = String.valueOf((year - 1900) / 10 * 10)+ "后";
+		}
+		return result;
 	}
 }

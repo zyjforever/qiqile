@@ -9,14 +9,16 @@
     <!-- profile image -->
 
     <ImageView
-        android:id="@+id/activity_image"
+        android:id="@+id/user_image"
         android:layout_width="50.0dp"
         android:layout_height="50.0dp"
+        android:layout_marginLeft="2.0dip"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5.0dip"
         android:layout_marginRight="10.0dip"
         android:layout_marginTop="5.0dip"
         android:orientation="vertical" >
@@ -27,60 +29,13 @@
 
             <!-- user name -->
 
-            <ImageView
-                android:id="@+id/user_image"
-                android:layout_width="10.0dp"
-                android:layout_height="10.0dp"
-                android:src="@android:drawable/ic_menu_gallery" />
-
-            <!-- hasImage icon -->
-
-            <ImageView
-                android:id="@+id/tweet_has_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="right"
-                android:src="@drawable/pic"
-                android:visibility="gone" />
-            <!-- favorited icon -->
-
-            <ImageView
-                android:id="@+id/tweet_fav"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="right"
-                android:src="@android:drawable/star_off"
-                android:visibility="gone" />
-            <!-- retweet icon -->
-
-            <ImageView
-                android:id="@+id/tweet_retweet"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="right"
-                android:contentDescription="TODO"
-                android:src="@drawable/retweet"
-                android:visibility="gone" />
-            <!-- reply icon -->
-
-            <ImageView
-                android:id="@+id/tweet_reply"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="right"
-                android:contentDescription="TODO"
-                android:src="@drawable/reply"
-                android:visibility="gone" />
-
             <TextView
                 android:id="@+id/user_nick"
-                style="@style/LinkText.Bold.Big"
+                style="@style/normalText.Big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/user_image"
-                android:text="小枫" />
-
+                android:layout_centerVertical="true" />
+            <!--
             <TextView
                 android:id="@+id/user_last_login_time"
                 style="@style/InsetText"
@@ -89,6 +44,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="1分钟前登录" />
+            -->
         </RelativeLayout>
 
         <!-- activity name -->
@@ -98,8 +54,7 @@
             style="@style/normalText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="2sp"
-            android:text="你说做这么多有用吗" />
+            android:lineSpacingExtra="2sp" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -110,8 +65,7 @@
                 style="@style/InsetText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="2sp"
-                android:text="90后" />
+                android:lineSpacingExtra="2sp" />
 
             <TextView
                 android:id="@+id/user_sex"
@@ -120,8 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5.0dip"
                 android:layout_toRightOf="@+id/user_age"
-                android:lineSpacingExtra="2sp"
-                android:text="帅哥" />
+                android:lineSpacingExtra="2sp" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.zyj.qiqile.tools.converter;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,9 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.zyj.qiqile.domain.bo.ActivityJoinBO;
+import com.zyj.qiqile.domain.bo.UserBO;
+import com.zyj.qiqile.domain.vo.UserVO;
+import com.zyj.qiqile.tools.TimeHelper;
 
 public class ActivityJoinConverter {
 	public static final String TAG = "ActivityJoinConverter";
@@ -36,7 +40,8 @@ public class ActivityJoinConverter {
 		return result;
 	}
 
-	public static List<ActivityJoinBO> jsonTOActivityBOList(JSONArray jsonArray) {
+	public static List<ActivityJoinBO> jsonTOActivityJoinBOList(
+			JSONArray jsonArray) {
 		List<ActivityJoinBO> activityJoinBOList = null;
 		if (jsonArray != null) {
 			activityJoinBOList = new ArrayList<ActivityJoinBO>();
@@ -70,11 +75,41 @@ public class ActivityJoinConverter {
 				if (!jsonObject.isNull(ActivityJoinBO.USER_ID)) {
 					activityJoinBO.setUserId(jsonObject
 							.getString(ActivityJoinBO.USER_ID));
+					activityJoinBO.getUserVO().setUserId(
+							jsonObject.getString(ActivityJoinBO.USER_ID));
 				}
 				if (!jsonObject.isNull(ActivityJoinBO.ATTRIBUTE)) {
 					activityJoinBO.setAttribute(jsonObject
 							.getString(ActivityJoinBO.ATTRIBUTE));
 				}
+
+				if (!jsonObject.isNull(UserVO.USERNAME)) {
+					activityJoinBO.getUserVO().setUserName(
+							jsonObject.getString(UserVO.USERNAME));
+				}
+				if (!jsonObject.isNull(UserVO.USERPICNAME)) {
+					activityJoinBO.getUserVO().setUserPicName(
+							jsonObject.getString(UserVO.USERPICNAME));
+				}
+				if (!jsonObject.isNull(UserVO.USERPICURL)) {
+					activityJoinBO.getUserVO().setUserPicUrl(
+							jsonObject.getString(UserVO.USERPICURL));
+				}
+				if (!jsonObject.isNull(UserVO.USERSEX)) {
+					activityJoinBO.getUserVO().setUserSex(
+							jsonObject.getInt(UserVO.USERSEX));
+				}
+				if (!jsonObject.isNull(UserVO.USERSIGNATURE)) {
+					activityJoinBO.getUserVO().setUserSignature(
+							jsonObject.getString(UserVO.USERSIGNATURE));
+				}
+				if (!jsonObject.isNull(UserVO.USERBIRTHDAY)) {
+					activityJoinBO.getUserVO().setUserBirthday(
+							new Date(TimeHelper.getSqlDateFromString(
+									jsonObject.getString(UserVO.USERBIRTHDAY))
+									.getTime()));
+				}
+
 			} catch (JSONException e) {
 				Log.e(TAG, "", e);
 				return activityJoinBO;

@@ -11,14 +11,9 @@
         android:layout_width="fill_parent"
         layout="@layout/header_back" />
 
-    <LinearLayout
-        android:id="@+id/LinearLayout_context"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_common" >
-        <ListView android:id="@+id/activity_joiners_view"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"/>
-    </LinearLayout>
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

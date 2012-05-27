@@ -84,7 +84,6 @@ public abstract class BasicBackActivity extends BasicActivity {
 				((Activity) context).onBackPressed();
 			}
 		};
-
 	}
 
 	@Override

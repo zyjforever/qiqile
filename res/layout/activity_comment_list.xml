@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/body_background"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:ignore="NestedScrolling" >
 
     <!-- 顶部条 -->
 
     <RelativeLayout
-        android:id="@+id/find_password"
         android:layout_width="fill_parent"
         android:layout_height="46dp"
         android:background="@drawable/bg_header"
@@ -25,6 +26,7 @@
         <TextView
             android:id="@+id/header_title"
             style="@style/header_title"
+            android:layout_width="wrap_content"
             android:text="@string/activity_comment" />
 
         <ImageButton
@@ -40,8 +42,10 @@
     </RelativeLayout>
 
     <!-- Main content area. -->
-    <ScrollView >
-        
-    </ScrollView>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

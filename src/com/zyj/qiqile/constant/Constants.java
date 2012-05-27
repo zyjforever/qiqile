@@ -21,6 +21,9 @@ public interface Constants {
 
 	/**选择活动地点*/
 	public static final int REQUEST_ACTIVITY_LOCATION=8;
+
+	/**活动评论*/
+	public static final int REQUEST_ACTIVITY_COMMENT=9;
 	
 	/**个人信息中图片大小*/
 	public static final int ME_PROFILE_IMAGE_SIZE=200;
@@ -43,4 +46,7 @@ public interface Constants {
 	/**活动名称限制*/
 	public static final int ACTIVITY_NAME_MAXSIZE=10;
 	public static final int ACTIVITY_CONTEXT_MAXSIZE=300;
+	
+	/**活动评论长度限制*/
+	public static final int ACTIVITY_COMMENT_MAXSIZE=140;
 }	
