@@ -12,6 +12,7 @@
         android:id="@+id/activity_image"
         android:layout_width="70.0dp"
         android:layout_height="70.0dp"
+        android:scaleType="fitCenter"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
@@ -31,6 +32,7 @@
                 android:id="@+id/user_image"
                 android:layout_width="30.0dp"
                 android:layout_height="30.0dp"
+                android:scaleType="fitCenter"
                 android:src="@android:drawable/ic_menu_gallery" />
 
             <!-- hasImage icon -->

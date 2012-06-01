@@ -17,7 +17,8 @@
             android:id="@+id/user_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="#FFF" >
+            android:background="#FFF"
+            android:scaleType="fitCenter" >
         </ImageView>
 
         <TextView
@@ -33,8 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/user_image"
-            android:layout_toLeftOf="@+id/user_nick"/>
-
+            android:layout_toLeftOf="@+id/user_nick" />
     </RelativeLayout>
 
     <RelativeLayout

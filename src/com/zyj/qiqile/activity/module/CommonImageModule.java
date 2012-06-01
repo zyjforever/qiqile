@@ -67,12 +67,12 @@ public class CommonImageModule {
 		this.picType = picType;
 		switch (picType) {
 		case USER:
-			directory = this.USER_PIC_DIRECTORY;
+			directory = USER_PIC_DIRECTORY;
 			thumbnailSize = Constants.ME_PROFILE_IMAGE_SIZE;
 			path = FileHelper.getUserPicDirectory();
 			break;
 		case ACTIVITY:
-			directory = this.ACTIVITY_PIC_DIRECTORY;
+			directory = ACTIVITY_PIC_DIRECTORY;
 			thumbnailSize = Constants.ACTIVITY_IMAGE_SIZE;
 			path = FileHelper.getActivityPicDirectory();
 			break;
@@ -227,10 +227,10 @@ public class CommonImageModule {
 					|| (options.outHeight / scale > size)) {
 				scale *= 2;
 			}
-
 			options.inJustDecodeBounds = false;
 			options.inSampleSize = scale;
-
+//			options.outHeight=size;
+//			options.outWidth=size;
 			input = getActivity().getContentResolver().openInputStream(uri);
 
 			return BitmapFactory.decodeStream(input, null, options);
@@ -276,11 +276,11 @@ public class CommonImageModule {
 				}
 				showImage(v, file);
 			}
-
-		} else {
-			v.setImageDrawable(context.getResources().getDrawable(
-					R.drawable.clipping_picture));
-		}
+			else {
+				v.setImageDrawable(context.getResources().getDrawable(
+						R.drawable.clipping_picture));
+			}
+		} 
 	}
 
 	public void showImage(ImageView v, String picName, String picUrl,
@@ -299,11 +299,11 @@ public class CommonImageModule {
 				}
 				showImage(v, file, picUrl);
 			}
-
-		} else {
-			v.setImageDrawable(context.getResources().getDrawable(
-					R.drawable.clipping_picture));
-		}
+			else {
+				v.setImageDrawable(context.getResources().getDrawable(
+						R.drawable.clipping_picture));
+			}
+		} 
 	}
 
 	/** 显示图片,如果目标文件不存在，就去源地址下载;下载失败，就用默认图像 */

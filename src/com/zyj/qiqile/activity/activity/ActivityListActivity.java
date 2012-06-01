@@ -124,6 +124,8 @@ public class ActivityListActivity extends ActivityGroup {
 		});
 	}
 
+	
+	
 	private void showActivityView() {
 		if (QiqileApplication.getInstance().getIsMapList()) {
 			Intent intent = new Intent(ActivityListActivity.this,

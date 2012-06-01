@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.zyj.qiqile.activity.QiqileMainActivity;
 import com.zyj.qiqile.domain.bo.ActivityBO;
+import com.zyj.qiqile.domain.bo.UserAttentionBO;
 import com.zyj.qiqile.domain.bo.UserBO;
 import com.zyj.qiqile.manager.ActivityJoinManager;
 import com.zyj.qiqile.manager.ActivityManager;
@@ -19,6 +22,7 @@ import com.zyj.qiqile.manager.impl.UserManagerImpl;
 public class QiqileApplication extends Application {
 
 	private static final String TAG = "QiqileApplication";
+	private QiqileMainActivity mainActivity;
 	private static QiqileApplication instance;
 	public static Context context;
 	private Boolean isLogin = Boolean.FALSE;// 用户是否登陆
@@ -33,6 +37,7 @@ public class QiqileApplication extends Application {
 	private String city;// 当前所在城市
 
 	private Map<String, List<List<ActivityBO>>> activityCityMapList;
+	private List<UserAttentionBO> myAttentionList;
 
 	public ActivityBO getCurrentLookActivity() {
 		return currentLookActivity;
@@ -151,6 +156,22 @@ public class QiqileApplication extends Application {
 	public void setActivityCityMapList(
 			Map<String, List<List<ActivityBO>>> activityCityMapList) {
 		this.activityCityMapList = activityCityMapList;
+	}
+
+	public QiqileMainActivity getMainActivity() {
+		return mainActivity;
+	}
+
+	public void setMainActivity(QiqileMainActivity mainActivity) {
+		this.mainActivity = mainActivity;
+	}
+
+	public List<UserAttentionBO> getMyAttentionList() {
+		return myAttentionList;
+	}
+
+	public void setMyAttentionList(List<UserAttentionBO> myAttentionList) {
+		this.myAttentionList = myAttentionList;
 	}
 
 }

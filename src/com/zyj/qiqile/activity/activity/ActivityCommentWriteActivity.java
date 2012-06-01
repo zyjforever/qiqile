@@ -64,7 +64,7 @@ public class ActivityCommentWriteActivity extends BasicWriteActivity {
 	@Override
 	protected void beforeFinish() {
 		ProgressDialog progressDiaglog = new ProgressDialog(this);
-		progressDiaglog.setMessage(getString(R.string.status_loading));
+		progressDiaglog.setMessage(getString(R.string.commit_status_in));
 		this.addActivityCommentTask = new AddActivityCommentTask(context,
 				progressDiaglog);
 		UserBO userBO = QiqileApplication.getInstance().getUserBO();
@@ -102,8 +102,6 @@ public class ActivityCommentWriteActivity extends BasicWriteActivity {
 		protected void onPostExecute(TaskResult result) {
 			super.onPostExecute(result);
 			if (result != null && result.getResult() == ResultCode.SUCCESS) {
-				QiqileApplication.getInstance().getCurrentLookActivity()
-						.getActivityCommentBOList().add(activityCommentBO);
 				Toast.makeText(context, R.string.commit_status_success,
 						Toast.LENGTH_SHORT).show();
 				progressDialog.dismiss();

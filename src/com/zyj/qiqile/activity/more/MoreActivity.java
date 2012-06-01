@@ -103,8 +103,13 @@ public class MoreActivity extends BasicActivity {
 										editor.remove(UserBO.EMAIL);
 										editor.remove(UserBO.PASSWORD);
 										editor.commit();
-										((Activity) QiqileApplication.context)
-												.finish();
+										QiqileApplication.getInstance()
+												.setUserBO(null);
+										QiqileApplication.getInstance()
+												.setIsLogin(Boolean.FALSE);
+										QiqileApplication.getInstance()
+												.getMainActivity()
+												.setContentView();
 									}
 								})
 						.setNegativeButton(getString(R.string.no), null).show();

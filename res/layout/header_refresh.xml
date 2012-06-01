@@ -9,20 +9,12 @@
     android:gravity="center_vertical" >
 
     <!-- title -->
-
-    <TextView
-        android:id="@+id/header_title"
-        style="@style/logo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="3dip"
-        android:layout_marginTop="12dip"
-        android:background="@null"
-        android:clickable="true" />
-
+	 <TextView
+        android:id="@+id/title"
+        style="@style/header_title"/>
+	 
     <ImageButton
-        android:id="@+id/edit_button"
+        android:id="@+id/refresh_button"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
@@ -30,18 +22,7 @@
         android:background="@null"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:src="@drawable/top_msg_selector" />
-
-    <ImageButton
-        android:id="@+id/map_list_button"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/edit_button"
-        android:background="@null"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:src="@drawable/map_button" android:visibility="invisible"/>
+        android:src="@drawable/top_refresh_selector" />
 
     <!-- 刷新按钮 -->
 

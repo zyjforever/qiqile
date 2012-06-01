@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.GeoPoint;
@@ -32,6 +37,11 @@ import com.zyj.qiqile.tools.TimeHelper;
 
 public class ActivityMapListViewActivity extends BasicMapActivity {
 	public static final String TAG = "ActivityMapListViewActivity";
+
+	private TextView headerTitle;
+	private ImageButton editButton;
+	private ImageButton mapListButton;
+	private TextView locationView;
 
 	private Button loadActivityButton;// 定位重新加载活动信息
 	private Drawable marker;
@@ -60,17 +70,6 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 								activityBO.getName());
 						overlayItemList.add(overlayItem);
 					}
-					/*
-					 * if (mMapView.getOverlays().size() > i &&
-					 * mMapView.getOverlays().get(i) != null) {
-					 * mMapView.getOverlays().remove(i);
-					 * mMapView.getOverlays().add( i, new OverItemT(marker,
-					 * QiqileApplication.context, overlayItemList,
-					 * activityBOList)); } else { mMapView.getOverlays().add(
-					 * new OverItemT(marker, QiqileApplication.context,
-					 * overlayItemList, activityBOList));
-					 * mMapView.postInvalidate(); }
-					 */
 					mMapView.getOverlays().add(
 							new OverItemT(marker, QiqileApplication.context,
 									overlayItemList, activityBOList));
@@ -85,16 +84,56 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		this.setContentView(R.layout.activity_map_list);
 		super.onCreate(savedInstanceState);
+		initView();
+		bindListener();
+	}
+
+	protected void initView() {
+		headerTitle = (TextView) findViewById(R.id.header_title);
 		loadActivityButton = (Button) findViewById(R.id.refresh_button);
+		editButton = (ImageButton) findViewById(R.id.edit_button);
+		mapListButton = (ImageButton) findViewById(R.id.map_list_button);
+		locationView = (TextView) findViewById(R.id.location);
+		headerTitle.setText(R.string.app_name);
+		locationView.setText(QiqileApplication.getInstance().getCity());
+
+	}
+
+	protected void bindListener() {
+		editButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (QiqileApplication.getInstance().isLogin()) {
+					Intent intent = new Intent(getBaseContext(),
+							ActivityEdit1Activity.class);
+					startActivity(intent);
+				} else {
+					Toast.makeText(getBaseContext(), R.string.please_login,
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		mapListButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				refresh();
+			}
+		});
+
 		marker = getResources().getDrawable(R.drawable.point_o);
 		now = TimeHelper.getCurrentTime(0);
 		time = TimeHelper.getCurrentTime(0);
-		// mMapView.getOverlays().add(new OverItemT(marker, this));
-
 		loadActivityButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				loadActivityListTask = new LoadLastestActivityTask();
+				ProgressDialog progressDialog = new ProgressDialog(
+						ActivityMapListViewActivity.this);
+				progressDialog.setMessage("正在加载"
+						+ TimeHelper.getDateString(
+								TimeHelper.basicSimpleBirthDateFormat, time)
+						+ "发布的活动...");
+				loadActivityListTask = new LoadLastestActivityTask(
+						getBaseContext(), progressDialog);
 				TaskParams params = new TaskParams();
 				params.put("time", time);
 				params.put("city", QiqileApplication.getInstance().getCity());
@@ -102,6 +141,11 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 				loadActivityListTask.execute(params);
 			}
 		});
+	}
+
+	/** 刷新地图 */
+	protected void refresh() {
+
 	}
 
 	class OverItemT extends ItemizedOverlay<OverlayItem> {
@@ -117,7 +161,6 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 			this.activityBOList = activityBOList;
 			this.mContext = context;
 			this.geoList = geoList;
-			
 			populate(); // createItem(int)方法构造item。一旦有了数据，在调用其它方法前，首先调用这个方法
 		}
 
@@ -140,11 +183,11 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 
 			if (count >= 2) {
 				count = 0;
-				Intent intent = new Intent(QiqileApplication.context,
+				Intent intent = new Intent(getBaseContext(),
 						ActivityProfileActivity.class);
 				QiqileApplication.getInstance().setCurrentLookActivity(
 						activityBOList.get(i));
-				QiqileApplication.getInstance().context.startActivity(intent);
+				startActivity(intent);
 			} else {
 				count = 1;
 				countItem = i;
@@ -152,10 +195,12 @@ public class ActivityMapListViewActivity extends BasicMapActivity {
 						.get(i).getLatitude(), activityBOList.get(i)
 						.getLongitude(), myLocation.getLatitude(), myLocation
 						.getLongitude());
-				String distanceString = "距离您当前位置"+distance+"米" + "\n";
-				Toast.makeText(this.mContext,
-						distanceString + geoList.get(i).getSnippet() + "(再次点击进入详情)",
-						Toast.LENGTH_SHORT).show();
+				String distanceString = "距离您当前位置" + distance + "米" + "\n";
+				Toast.makeText(
+						this.mContext,
+						"活动主题：" + geoList.get(i).getSnippet() + "\n"
+								+ distanceString + "(再次点击进入详情)",
+						Toast.LENGTH_LONG).show();
 			}
 			return true;
 		}

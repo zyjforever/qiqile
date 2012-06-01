@@ -13,6 +13,7 @@
         android:layout_width="50.0dp"
         android:layout_height="50.0dp"
         android:layout_marginLeft="2.0dip"
+        android:scaleType="fitCenter"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="1分钟前登录" />
+                android:text="1分钟前登录" />
             -->
         </RelativeLayout>
 

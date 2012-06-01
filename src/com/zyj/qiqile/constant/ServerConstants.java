@@ -41,4 +41,7 @@ public interface ServerConstants {
 	public static final String ACTIVITY_COMMENT="activitycomment/";
 	public static final String QUERY_BY_ACTIVITYID="querybyactivityid/";
 
+	/**用户关注模块*/
+	public static final String USER_ATTENTION="userattention/";
+	public static final String QUERY_BY_USRID = "querybyuserid/";
 }

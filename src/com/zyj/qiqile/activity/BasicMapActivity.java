@@ -1,5 +1,9 @@
 package com.zyj.qiqile.activity;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +17,7 @@ import com.baidu.mapapi.MapActivity;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MyLocationOverlay;
 import com.zyj.qiqile.R;
+import com.zyj.qiqile.app.ActivityManagerApplication;
 import com.zyj.qiqile.app.BMapManagerApplication;
 
 /**
@@ -29,6 +34,11 @@ public class BasicMapActivity extends MapActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		init();
+	}
+
+	private void init() {
+		ActivityManagerApplication.getInstance().addActvity(this);
 		bMapManagerApplication = BMapManagerApplication.getInstance();
 		if (bMapManagerApplication.mBMapMan == null) {
 			bMapManagerApplication.mBMapMan = new BMapManager(getApplication());
@@ -90,8 +100,30 @@ public class BasicMapActivity extends MapActivity {
 	}
 
 	@Override
+	protected void onRestart() {
+		// 注册定位事件，定位后将地图移动到定位点
+		bMapManagerApplication.mBMapMan.getLocationManager()
+				.requestLocationUpdates(mLocationListener);
+		mLocationOverlay.enableMyLocation();
+		mLocationOverlay.enableCompass(); // 打开指南针
+		bMapManagerApplication.mBMapMan.start();
+		super.onRestart();
+	}
+
+	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
+	}
+
+	@Override
+	public void onNewIntent(Intent arg0) {
+		// 注册定位事件，定位后将地图移动到定位点
+		bMapManagerApplication.mBMapMan.getLocationManager()
+				.requestLocationUpdates(mLocationListener);
+		mLocationOverlay.enableMyLocation();
+		mLocationOverlay.enableCompass(); // 打开指南针
+		bMapManagerApplication.mBMapMan.start();
+		super.onNewIntent(arg0);
 	}
 
 	protected void reloadLocation(Location location) {
@@ -100,10 +132,29 @@ public class BasicMapActivity extends MapActivity {
 			GeoPoint pt = new GeoPoint((int) (location.getLatitude() * 1e6),
 					(int) (location.getLongitude() * 1e6));
 
-			// GeoPoint pt = new GeoPoint((int) (37.422006D * 1e6),
-			// // (int) (-122.084095D * 1e6));
 			mMapView.getController().animateTo(pt);
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setMessage("确定要退出吗?");
+		builder.setPositiveButton("确认",
+				new android.content.DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						ActivityManagerApplication.getInstance().exit();
+					}
+				});
+		builder.setNegativeButton("取消",
+				new android.content.DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		builder.create().show();
+	}
 }

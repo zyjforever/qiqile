@@ -5,6 +5,7 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -15,21 +16,19 @@ import com.zyj.qiqile.tools.UploadHelper;
 
 public class UploadImageTask extends GenericTask {
 	private Context context;
-
-	public UploadImageTask() {
-		this.context = QiqileApplication.context;
-	}
+	private ProgressDialog progressDialog;
 
 	public UploadImageTask(Context context) {
 		this.context = context;
+		this.progressDialog = new ProgressDialog(context);
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(context,
-				context.getString(R.string.upload_img_status_in),
-				Toast.LENGTH_LONG).show();
+		progressDialog.setMessage(context
+				.getString(R.string.upload_img_status_in));
+		progressDialog.show();
 	}
 
 	@Override
@@ -67,6 +66,7 @@ public class UploadImageTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
+				progressDialog.dismiss();
 				Toast.makeText(context,
 						context.getString(R.string.upload_img_status_success),
 						Toast.LENGTH_SHORT).show();

@@ -41,6 +41,16 @@ public class ActivityEdit1Activity extends BasicBackActivity {
 	}
 
 	@Override
+	protected void initListener() {
+		backListener = new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				beforeBack();
+			}
+		};
+	}
+
+	@Override
 	protected void bindListener() {
 		nextButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -70,7 +80,7 @@ public class ActivityEdit1Activity extends BasicBackActivity {
 	protected void setContentView() {
 		setContentView(R.layout.activity_edit_1);
 	}
-
+	
 	@Override
 	protected void beforeBack() {
 		if (activityBO.getId() != null) {
@@ -82,12 +92,37 @@ public class ActivityEdit1Activity extends BasicBackActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									ActivityEdit1Activity.this.beforeBack();
+									QiqileApplication.getInstance().setCurrentEditActivity(null);
+									finish();
 								}
 							}).setNegativeButton("否", null).show();
 		} else {
-			super.beforeBack();
+			QiqileApplication.getInstance().setCurrentEditActivity(null);
+			finish();
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (activityBO.getId() != null) {
+			new AlertDialog.Builder(this)
+					.setTitle("确认")
+					.setMessage("放弃编辑活动？")
+					.setPositiveButton("是",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									QiqileApplication.getInstance().setCurrentEditActivity(null);
+									finish();
+								}
+							}).setNegativeButton("否", null).show();
+		} else {
+			QiqileApplication.getInstance().setCurrentEditActivity(null);
+			finish();
+		}
+	}
+
+	
+	
 }

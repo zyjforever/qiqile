@@ -2,6 +2,7 @@ package com.zyj.qiqile.activity.module.item;
 
 import java.io.File;
 
+import com.zyj.qiqile.R;
 import com.zyj.qiqile.activity.module.CommonImageModule;
 import com.zyj.qiqile.activity.module.CommonImageModule.PicType;
 import com.zyj.qiqile.app.QiqileApplication;
@@ -34,6 +35,9 @@ public class UserListItem {
 						userImageView,
 						new File(FileHelper.getUserPicDirectory(), userVO
 								.getUserPicName()), userVO.getUserPicUrl());
+			}
+			else{
+				userImageView.setBackgroundResource(R.drawable.clipping_picture);
 			}
 			userNickText.setText(userVO.getUserName());
 			userSignatureText.setText(userVO.getUserSignature());

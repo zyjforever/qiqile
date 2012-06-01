@@ -31,12 +31,12 @@
                 android:orientation="vertical" >
 
                 <!-- 头像图片 -->
-
+
                 <ImageView
                     android:id="@+id/profileimage"
                     android:layout_width="64dp"
-                    android:layout_height="64dp" >
-
+                    android:layout_height="64dp"
+                    android:scaleType="fitCenter" >
                 </ImageView>
 
                 <TextView
@@ -51,11 +51,11 @@
                     android:id="@+id/LinearLayout_2"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" 
                     android:layout_below="@+id/user_nick"
-                    android:layout_toRightOf="@id/profileimage" >
-                    
+                    android:layout_toRightOf="@id/profileimage"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
                     <TextView
                         android:id="@+id/user_age"
                         style="@style/normalText"
@@ -68,19 +68,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-                
-                 <TextView
+
+                <TextView
                     android:id="@+id/user_state"
                     style="@style/LinkText.Bold.Huge"
                     android:layout_width="fill_parent"
                     android:layout_height="14.0dip"
-                    android:layout_toRightOf="@id/profileimage" 
-                    android:layout_below="@+id/LinearLayout_2" >
+                    android:layout_below="@+id/LinearLayout_2"
+                    android:layout_toRightOf="@id/profileimage" >
                 </TextView>
-                
             </RelativeLayout>
-            
-			<RelativeLayout
+
+            <RelativeLayout
                 android:id="@+id/relative_3"
                 android:layout_width="fill_parent"
                 android:layout_height="100.0dip"
@@ -101,6 +100,7 @@
                     android:textColor="#FF7D899D"
                     android:textSize="16.0sp" >
                 </TextView>
+
                 <TextView
                     android:id="@+id/user_city"
                     style="@style/normalText.span"
@@ -134,7 +134,8 @@
                     android:textColor="#FF7D899D"
                     android:textSize="16.0sp" >
                 </TextView>
-				<TextView
+
+                <TextView
                     android:id="@+id/user_signature"
                     style="@style/normalText.span"
                     android:layout_width="wrap_content"
@@ -145,8 +146,6 @@
                     android:textSize="16.0sp" >
                 </TextView>
             </RelativeLayout>
-       
-      
 
             <!-- 操作按钮部分 -->
 
@@ -180,7 +179,6 @@
                     android:drawablePadding="5dip"
                     android:visibility="gone" />
             </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 

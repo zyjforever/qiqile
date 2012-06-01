@@ -1,4 +1,4 @@
-package com.zyj.qiqile.activity.activity;
+package com.zyj.qiqile.activity.friend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,26 +17,26 @@ import com.zyj.qiqile.R;
 import com.zyj.qiqile.activity.BasicListActivity;
 import com.zyj.qiqile.activity.friend.UserProfileActivity;
 import com.zyj.qiqile.app.QiqileApplication;
-import com.zyj.qiqile.domain.bo.ActivityCommentBO;
-import com.zyj.qiqile.domain.bo.ActivityJoinBO;
+import com.zyj.qiqile.domain.bo.UserAttentionBO;
+import com.zyj.qiqile.domain.bo.UserBO;
 import com.zyj.qiqile.domain.vo.UserVO;
-import com.zyj.qiqile.manager.ActivityJoinManager;
-import com.zyj.qiqile.manager.impl.ActivityJoinManagerImpl;
+import com.zyj.qiqile.manager.UserAttentionManager;
+import com.zyj.qiqile.manager.impl.UserAttentionManagerImpl;
 import com.zyj.qiqile.task.GenericTask;
 import com.zyj.qiqile.task.TaskParams;
 import com.zyj.qiqile.task.TaskResult;
 import com.zyj.qiqile.task.TaskResult.ResultCode;
 import com.zyj.qiqile.ui.adapter.UserListItemAdapter;
 
-public class ActivityJoinersActivity extends BasicListActivity {
+public class FriendListActivity extends BasicListActivity {
 
-	public static final String TAG = "ActivityJoinersActivity";
+	public static final String TAG = "FriendListActivity";
 
-	private Button backButton;
+	private ImageButton refreshButton;
 	private ProgressDialog progressDialog;
 
 	// 加载活动参与者的task
-	private GenericTask loadJoinTask;
+	private GenericTask loadAttentionListTask;
 
 	@Override
 	public void init() {
@@ -46,17 +46,16 @@ public class ActivityJoinersActivity extends BasicListActivity {
 
 	@Override
 	protected void initView() {
-		backButton = (Button) findViewById(R.id.top_back);
+		refreshButton = (ImageButton) findViewById(R.id.refresh_button);
 		listView = new ListView(this);
-		((TextView) findViewById(R.id.title))
-				.setText(R.string.activity_join_header);
+		((TextView) findViewById(R.id.title)).setText(R.string.friend_header);
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage(getString(R.string.status_loading));
 	}
 
 	@Override
 	protected void setContentView() {
-		this.setContentView(R.layout.activity_joiners);
+		this.setContentView(R.layout.friend_list);
 	}
 
 	@Override
@@ -65,11 +64,10 @@ public class ActivityJoinersActivity extends BasicListActivity {
 
 	@Override
 	protected void initListener() {
-		backButton.setOnClickListener(new OnClickListener() {
+		refreshButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();// 结束当前的activity
-				onBackPressed();
+				getDatas();
 			}
 		});
 	}
@@ -80,48 +78,44 @@ public class ActivityJoinersActivity extends BasicListActivity {
 
 	@Override
 	protected void getDatas() {
-		this.loadJoinTask = new LoadActivityJoinListTask(context,
+		this.loadAttentionListTask = new LoadAttentionListTask(context,
 				progressDialog);
 		TaskParams params = new TaskParams();
-		params.put(ActivityJoinBO.ACTIVITY_ID, QiqileApplication.getInstance()
-				.getCurrentLookActivity().getId());
-		loadJoinTask.execute(params);
+		params.put(UserBO.ID, QiqileApplication.getInstance().getUserBO()
+				.getId());
+		loadAttentionListTask.execute(params);
 	}
 
 	// 把列表交给控件显示
-	public void pushJoinList(List<ActivityJoinBO> activityJoinBOList) {
-		if (activityJoinBOList != null && activityJoinBOList.size() > 0) {
+	public void pushAttentionList(List<UserAttentionBO> userAttentionBOList) {
+		if (userAttentionBOList != null && userAttentionBOList.size() > 0) {
 			List<UserVO> userVOList = new ArrayList<UserVO>();
-			for (ActivityJoinBO activityJoinBO : activityJoinBOList) {
-				userVOList.add(activityJoinBO.getUserVO());
+			for (UserAttentionBO userAttentionBO : userAttentionBOList) {
+				userVOList.add(userAttentionBO.getUserVO());
 			}
 			this.adapter = new UserListItemAdapter(getLayoutInflater(),
 					userVOList);
 			setListAdapter(adapter);
+		} else {
+			Toast.makeText(this, R.string.empty_attention, Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		if (QiqileApplication.getInstance().getUserBO()== null
-				|| !QiqileApplication.getInstance().getUserBO().getId()
-						.equals(String.valueOf(id))) {
-			Intent intent = new Intent(this, UserProfileActivity.class);
-			intent.putExtra(UserVO.USERID, String.valueOf(id));
-			startActivity(intent);
-		} else {
-			Toast.makeText(context, R.string.error_is_yourself,
-					Toast.LENGTH_SHORT).show();
-		}
+		Intent intent = new Intent(this, UserProfileActivity.class);
+		intent.putExtra(UserVO.USERID, String.valueOf(id));
+		startActivity(intent);
 	}
 
 	/** 加载评论列表的类 */
-	class LoadActivityJoinListTask extends GenericTask {
+	class LoadAttentionListTask extends GenericTask {
 		private Context context;
 		private ProgressDialog progressDialog;
 
-		public LoadActivityJoinListTask(Context context,
+		public LoadAttentionListTask(Context context,
 				ProgressDialog progressDialog) {
 			this.context = context;
 			this.progressDialog = progressDialog;
@@ -131,9 +125,11 @@ public class ActivityJoinersActivity extends BasicListActivity {
 		protected void onPostExecute(TaskResult result) {
 			super.onPostExecute(result);
 			if (result != null && result.getResult() == ResultCode.SUCCESS) {
-				List<ActivityJoinBO> activityJoinBOList = (List<ActivityJoinBO>) result
-						.get("activityJoinBOList");
-				pushJoinList(activityJoinBOList);
+				List<UserAttentionBO> attentionBOList = (List<UserAttentionBO>) result
+						.get("userAttentionBOList");
+				pushAttentionList(attentionBOList);
+				QiqileApplication.getInstance().setMyAttentionList(
+						attentionBOList);
 				progressDialog.dismiss();
 			} else {
 				Toast.makeText(context, R.string.status_fail,
@@ -151,10 +147,10 @@ public class ActivityJoinersActivity extends BasicListActivity {
 		protected TaskResult _doInBackground(TaskParams... params) {
 			TaskResult taskResult = null;
 			if (params != null) {
-				ActivityJoinManager activityJoinManagerManager = new ActivityJoinManagerImpl();
-				taskResult = activityJoinManagerManager
-						.queryActivityJoinBOByActivityId((String) params[0]
-								.get(ActivityCommentBO.ACTIVITY_ID));
+				UserAttentionManager userAttentionManager = new UserAttentionManagerImpl();
+				taskResult = userAttentionManager
+						.queryUserAttentionList((String) params[0]
+								.get(UserBO.ID));
 			}
 			return taskResult;
 		}

@@ -45,25 +45,27 @@ public class LocationHelper {
 	public final static String ADDRESSLINE = "AddressLine";
 	public final static String DEPENDENT_LOCALITY_NAME = "DependentLocalityName";
 
-	public final static double MILE_TO_KILOMETER=1.609344;
-	
+	public final static double MILE_TO_KILOMETER = 1.609344;
+
 	public static Location getCurrentLocation(Context context) {
 		Location location = null;
 		LocationManager lm = (LocationManager) context
 				.getSystemService(Context.LOCATION_SERVICE);
-		List<String> lp = lm.getAllProviders();
-		for (String item : lp) {
-			Log.i("8023", "可用位置服务：" + item);
-		}
-		Criteria criteria = new Criteria();
-		criteria.setCostAllowed(false);
-		// 设置位置服务免费
-		criteria.setAccuracy(Criteria.ACCURACY_COARSE); // 设置水平位置精度
-		// getBestProvider 只有允许访问调用活动的位置供应商将被返回
-		String providerName = lm.getBestProvider(criteria, true);
-		Log.i("8023", "------位置服务：" + providerName);
-		if (providerName != null) {
-			location = lm.getLastKnownLocation(providerName);
+		if (lm != null) {
+//			List<String> lp = lm.getAllProviders();
+//			for (String item : lp) {
+//				Log.i("8023", "可用位置服务：" + item);
+//			}
+			Criteria criteria = new Criteria();
+			criteria.setCostAllowed(false);
+			// 设置位置服务免费
+			criteria.setAccuracy(Criteria.ACCURACY_COARSE); // 设置水平位置精度
+			// getBestProvider 只有允许访问调用活动的位置供应商将被返回
+			String providerName = lm.getBestProvider(criteria, true);
+			Log.i("8023", "------位置服务：" + providerName);
+			if (providerName != null) {
+				location = lm.getLastKnownLocation(providerName);
+			}
 		}
 		return location;
 	}
@@ -170,7 +172,7 @@ public class LocationHelper {
 		return addr;
 	}
 
-	/** 获得两点间距离，单位：米*/
+	/** 获得两点间距离，单位：米 */
 	public static double getDistance(double lat1, double lon1, double lat2,
 			double lon2) {
 		float[] results = new float[1];

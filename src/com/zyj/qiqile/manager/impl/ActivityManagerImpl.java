@@ -109,4 +109,42 @@ public class ActivityManagerImpl extends BasicManageImpl implements
 		return result;
 	}
 
+	@Override
+	public TaskResult updateActivity(ActivityBO activityBO) {
+		if (activityBO == null) {
+			return null;
+		}
+		Map<String, String> params = ActivityConverter
+				.activityBOTOMap(activityBO);
+		TaskResult result = new TaskResult();
+		if (params != null) {
+			params.put(ActivityBO.USERID, QiqileApplication.getInstance()
+					.getUserBO().getId());
+		}
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = httpConnectionHelper.sendPostDataAndResult(URL
+					+ ServerConstants.UPDATE, params);
+		} catch (HttpException e1) {
+			result.setResult(ResultCode.NETWORK_ERROR);
+			return result;
+		}
+		if (jsonObject != null) {
+			try {
+				int errorCode = jsonObject.getInt(ServerConstants.ERROR_CODE);
+				if (errorCode == ServerErrorConstants.CODE_SUCCESS) {
+					result.setResult(ResultCode.SUCCESS);
+				} else {
+					result.setResult(ResultCode.FAILED);
+					result.setErrorCode(errorCode);
+				}
+			} catch (JSONException e) {
+				Log.e(TAG, "updateActivity", e);
+				result.setResult(ResultCode.UNKNOW_ERROR);
+				return result;
+			}
+		}
+		return result;
+	}
+
 }

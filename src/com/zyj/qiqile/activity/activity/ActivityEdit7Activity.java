@@ -3,6 +3,8 @@ package com.zyj.qiqile.activity.activity;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +50,8 @@ public class ActivityEdit7Activity extends BasicWriteActivity {
 	private GenericTask uploadImageTask;
 	private GenericTask addOrUpadteActivityTask;
 
+	private ProgressDialog progressDiaglog;
+
 	// taks listener
 	private TaskListener uploadImageListener = new GenericAferExcutedListener() {
 		@Override
@@ -55,15 +59,7 @@ public class ActivityEdit7Activity extends BasicWriteActivity {
 			if (result.getResult() == ResultCode.SUCCESS) {
 				picUrl = (String) result.get("picUrl");
 				activityBO.setPicUrl(picUrl);
-				activityBO.setTime(new Date());
-				TaskParams params = new TaskParams();
-				params.put("activityBO", activityBO);
-				if (activityBO.getId() != null) {
-					// 编辑
-				} else {
-					addOrUpadteActivityTask = new AddActivityTask();
-					addOrUpadteActivityTask.execute(params);
-				}
+				addOrUpdate();
 			}
 		}
 	};
@@ -73,6 +69,25 @@ public class ActivityEdit7Activity extends BasicWriteActivity {
 		activityBO = QiqileApplication.getInstance().getCurrentEditActivity();
 		userBO = QiqileApplication.getInstance().getUserBO();
 		super.init();
+	}
+
+	protected void addOrUpdate() {
+		TaskParams params = new TaskParams();
+		progressDiaglog = new ProgressDialog(context);
+		progressDiaglog.setMessage(getString(R.string.commit_status_in));
+		if (activityBO.getId() != null) {
+			// 编辑
+			params.put("activityBO", activityBO);
+			addOrUpadteActivityTask = new UpdateActivityTask(context,
+					progressDiaglog);
+			addOrUpadteActivityTask.execute(params);
+		} else {
+			activityBO.setTime(new Date());
+			params.put("activityBO", activityBO);
+			addOrUpadteActivityTask = new AddActivityTask(context,
+					progressDiaglog);
+			addOrUpadteActivityTask.execute(params);
+		}
 	}
 
 	@Override
@@ -146,13 +161,15 @@ public class ActivityEdit7Activity extends BasicWriteActivity {
 	protected void beforeFinish() {
 		if (activityBO.getNewPic() != null && activityBO.getNewPic()) {
 			// 提交图片
-			uploadImageTask = new UploadImageTask();
+			uploadImageTask = new UploadImageTask(context);
 			TaskParams params = new TaskParams();
 			params.put("file", activityBO.getPicFile());
 			params.put("url", ServerConstants.HTTP
 					+ ServerConstants.ACTIVITY_PIC_SERVER_URL);
 			uploadImageTask.setListener(uploadImageListener);
 			uploadImageTask.execute(params);
+		} else {
+			addOrUpdate();
 		}
 	}
 
@@ -161,61 +178,118 @@ public class ActivityEdit7Activity extends BasicWriteActivity {
 		this.setContentView(R.layout.activity_edit_7);
 		this.setTitleString(getString(R.string.activity_preview));
 	}
-}
 
-class AddActivityTask extends GenericTask {
+	class AddActivityTask extends GenericTask {
+		private Context context;
+		private ProgressDialog progressDialog;
 
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		Toast.makeText(QiqileApplication.context,
-				QiqileApplication.context.getString(R.string.commit_status_in),
-				Toast.LENGTH_LONG).show();
-	}
+		public AddActivityTask(Context context, ProgressDialog progressDialog) {
+			this.context = context;
+			this.progressDialog=progressDialog;
+		}
 
-	@Override
-	protected TaskResult _doInBackground(TaskParams... params) {
-		ActivityManager activityManager = QiqileApplication.getInstance()
-				.getActivityManager();
-		TaskResult taskResult = activityManager
-				.addActivity((ActivityBO) params[0].get("activityBO"));
-		return taskResult;
-	}
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog.show();
+		}
 
-	@Override
-	protected void onPostExecute(TaskResult result) {
-		if (result != null) {
-			ResultCode resultCode = result.getResult();
-			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.commit_status_success),
-						Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(QiqileApplication.context,
-						QiqileMainActivity.class);
-				QiqileApplication.context.startActivity(intent);
-				((Activity) QiqileApplication.context).finish();// 返回主页
-			} else if (resultCode == ResultCode.NETWORK_ERROR) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_status_network_or_connection_error),
-						Toast.LENGTH_SHORT).show();
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			ActivityManager activityManager = QiqileApplication.getInstance()
+					.getActivityManager();
+			TaskResult taskResult = activityManager
+					.addActivity((ActivityBO) params[0].get("activityBO"));
+			return taskResult;
+		}
+
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			QiqileApplication.getInstance().setCurrentEditActivity(null);
+			progressDialog.dismiss();
+			if (result != null) {
+				ResultCode resultCode = result.getResult();
+				if (resultCode == ResultCode.SUCCESS) {
+					Toast.makeText(context,
+							context.getString(R.string.commit_status_success),
+							Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(context,
+							QiqileMainActivity.class);
+					context.startActivity(intent);
+					((Activity) context).finish();// 返回主页
+					QiqileApplication.getInstance().setCurrentEditActivity(null);
+				} else if (resultCode == ResultCode.NETWORK_ERROR) {
+					Toast.makeText(
+							context,
+							context.getString(R.string.login_status_network_or_connection_error),
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
+							Toast.LENGTH_SHORT).show();
+				}
 			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
+				Toast.makeText(context,
+						context.getString(R.string.commit_status_fail),
 						Toast.LENGTH_SHORT).show();
 			}
-		} else {
-			Toast.makeText(
-					QiqileApplication.context,
-					QiqileApplication.context
-							.getString(R.string.commit_status_fail),
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 
+	class UpdateActivityTask extends GenericTask {
+		private Context context;
+		private ProgressDialog progressDialog;
+
+		public UpdateActivityTask(Context context, ProgressDialog progressDialog) {
+			this.context = context;
+			this.progressDialog = progressDialog;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog.show();
+		}
+
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			ActivityManager activityManager = QiqileApplication.getInstance()
+					.getActivityManager();
+			TaskResult taskResult = activityManager
+					.updateActivity((ActivityBO) params[0].get("activityBO"));
+			return taskResult;
+		}
+
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			QiqileApplication.getInstance().setCurrentEditActivity(null);
+			progressDialog.dismiss();
+			if (result != null) {
+				ResultCode resultCode = result.getResult();
+				if (resultCode == ResultCode.SUCCESS) {
+					Toast.makeText(context,
+							context.getString(R.string.commit_status_success),
+							Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(context,
+							QiqileMainActivity.class);
+					context.startActivity(intent);
+					((Activity) context).finish();// 返回主页
+				} else if (resultCode == ResultCode.NETWORK_ERROR) {
+					Toast.makeText(
+							context,
+							context.getString(R.string.login_status_network_or_connection_error),
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
+							Toast.LENGTH_SHORT).show();
+				}
+			} else {
+				Toast.makeText(context,
+						context.getString(R.string.commit_status_fail),
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+
+	}
 }

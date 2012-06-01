@@ -1,6 +1,7 @@
 package com.zyj.qiqile.activity.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,6 +57,8 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	private GenericTask isJoinTask;
 	private Boolean isJoin;
 
+	private ProgressDialog progressDiaglog;
+
 	@Override
 	public void init() {
 		activityBO = QiqileApplication.getInstance().getCurrentLookActivity();
@@ -80,6 +83,8 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		activityJoinButton = (TextView) findViewById(R.id.button_activity_join);
 		activityCommentButton = (TextView) findViewById(R.id.button_activity_comment);
 		commonImageModule = new CommonImageModule(this, TAG);
+
+		progressDiaglog = new ProgressDialog(this);
 
 		// 把内容显示到view上面去
 		activityNameText.setText(activityBO.getName());
@@ -198,7 +203,8 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	}
 
 	private void join() {
-		joinTask = new JoinTask(this);
+		progressDiaglog.setMessage(getString(R.string.commit_status_in));
+		joinTask = new JoinTask(this,progressDiaglog);
 		TaskParams params = new TaskParams();
 		activityJoinBO = new ActivityJoinBO();
 		activityJoinBO.setActivityId(activityBO.getId());
@@ -208,7 +214,8 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	}
 
 	private void cancelJoin() {
-		joinTask = new CancelJoinTask(this);
+		progressDiaglog.setMessage(getString(R.string.commit_status_in));
+		joinTask = new CancelJoinTask(this, progressDiaglog);
 		TaskParams params = new TaskParams();
 		activityJoinBO = new ActivityJoinBO();
 		activityJoinBO.setActivityId(activityBO.getId());
@@ -217,11 +224,12 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		joinTask.execute(params);
 	}
 
-	//显示按钮
+	// 显示按钮
 	private void isJoin() {
 		if (QiqileApplication.getInstance().isLogin()) {
 			if (activityBO.getIsJoin() == null) {
-				isJoinTask = new IsJoinTask(this);
+				progressDiaglog.setMessage(getString(R.string.status_loading));
+				isJoinTask = new IsJoinTask(this,progressDiaglog);
 				TaskParams params = new TaskParams();
 				activityJoinBO = new ActivityJoinBO();
 				activityJoinBO.setActivityId(activityBO.getId());
@@ -274,10 +282,19 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	}
 
 	class JoinTask extends GenericTask {
-		private Context context;
 
-		public JoinTask(Context context) {
+		private Context context;
+		private ProgressDialog progressDiaglog;
+
+		public JoinTask(Context context, ProgressDialog progressDiaglog) {
 			this.context = context;
+			this.progressDiaglog = progressDiaglog;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			progressDiaglog.show();
+			super.onPreExecute();
 		}
 
 		@Override
@@ -292,6 +309,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		@Override
 		protected void onPostExecute(TaskResult result) {
 			super.onPostExecute(result);
+			progressDiaglog.dismiss();
 			if (result != null) {
 				ResultCode resultCode = result.getResult();
 				if (resultCode == ResultCode.SUCCESS) {
@@ -316,9 +334,17 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	class CancelJoinTask extends GenericTask {
 
 		private Context context;
+		private ProgressDialog progressDiaglog;
 
-		public CancelJoinTask(Context context) {
+		public CancelJoinTask(Context context, ProgressDialog progressDiaglog) {
 			this.context = context;
+			this.progressDiaglog = progressDiaglog;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			progressDiaglog.show();
+			super.onPreExecute();
 		}
 
 		@Override
@@ -334,6 +360,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 		@Override
 		protected void onPostExecute(TaskResult result) {
 			super.onPostExecute(result);
+			progressDiaglog.dismiss();
 			if (result != null) {
 				ResultCode resultCode = result.getResult();
 				if (resultCode == ResultCode.SUCCESS) {
@@ -360,9 +387,17 @@ public class ActivityProfileActivity extends BasicBackActivity {
 	/** 判断用户是否加入了这个活动，仅在用户第一次查看本活动时候加载 **/
 	class IsJoinTask extends GenericTask {
 		private Context context;
+		private ProgressDialog progressDiaglog;
 
-		public IsJoinTask(Context context) {
+		public IsJoinTask(Context context, ProgressDialog progressDiaglog) {
 			this.context = context;
+			this.progressDiaglog = progressDiaglog;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			progressDiaglog.show();
+			super.onPreExecute();
 		}
 
 		@Override
@@ -376,6 +411,7 @@ public class ActivityProfileActivity extends BasicBackActivity {
 
 		@Override
 		protected void onPostExecute(TaskResult result) {
+			progressDiaglog.dismiss();
 			super.onPostExecute(result);
 			if (result != null) {
 				ResultCode resultCode = result.getResult();

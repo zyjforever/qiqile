@@ -24,6 +24,9 @@ public class ActivityConverter {
 		Map<String, String> result = null;
 		if (activityBO != null) {
 			result = new HashMap<String, String>();
+			if (activityBO.getId() != null) {
+				result.put(ActivityBO.ID, activityBO.getId());
+			}
 			if (activityBO.getName() != null) {
 				result.put(ActivityBO.NAME, activityBO.getName());
 			}

@@ -19,31 +19,23 @@ public class LoginTask extends GenericTask {
 
 	private Context context;
 
-	public LoginTask() {
-		this.context = QiqileApplication.context;
-	}
-	
-	public LoginTask(Context context){
+	public LoginTask(Context context) {
 		this.context = context;
 	}
-	
+
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(
-				QiqileApplication.context,
-				QiqileApplication.context
-						.getString(R.string.login_status_logging_in),
+		Toast.makeText(context,
+				context.getString(R.string.login_status_logging_in),
 				Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	protected void onProgressUpdate(Object... values) {
 		super.onProgressUpdate(values);
-		Toast.makeText(
-				QiqileApplication.context,
-				QiqileApplication.context
-						.getString(R.string.login_status_logging_in),
+		Toast.makeText(context,
+				context.getString(R.string.login_status_logging_in),
 				Toast.LENGTH_SHORT).show();
 	}
 
@@ -63,41 +55,30 @@ public class LoginTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_success),
+				Toast.makeText(context,
+						context.getString(R.string.login_success),
 						Toast.LENGTH_SHORT).show();
 				QiqileApplication.getInstance().setCheckLogin(Boolean.TRUE);// 设置已经自动登录过
 				QiqileApplication.getInstance().setIsLogin(Boolean.TRUE);// 设置已经登陆
-				Intent intent = new Intent(QiqileApplication.context,
-						QiqileMainActivity.class);
-				((Activity) QiqileApplication.context).finish();
-				QiqileApplication.context.startActivity(intent);
 			} else if (resultCode == ResultCode.NETWORK_ERROR) {
 				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_status_network_or_connection_error),
+						context,
+						context.getString(R.string.login_status_network_or_connection_error),
 						Toast.LENGTH_SHORT).show();
 			} else if (resultCode == ResultCode.FAILED) {
 				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.login_status_invalid_username_or_password),
+						context,
+						context.getString(R.string.login_status_invalid_username_or_password),
 						Toast.LENGTH_SHORT).show();
 			} else {
-				Toast.makeText(
-						QiqileApplication.context,
-						QiqileApplication.context
-								.getString(R.string.error_unknow),
+				Toast.makeText(context,
+						context.getString(R.string.error_unknow),
 						Toast.LENGTH_SHORT).show();
 			}
 		} else {
 			Toast.makeText(
-					QiqileApplication.context,
-					QiqileApplication.context
-							.getString(R.string.login_status_invalid_username_or_password),
+					context,
+					context.getString(R.string.login_status_invalid_username_or_password),
 					Toast.LENGTH_SHORT).show();
 		}
 	}

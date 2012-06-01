@@ -1,24 +1,19 @@
 package com.zyj.qiqile.activity;
 
 import com.zyj.qiqile.R;
-import com.zyj.qiqile.activity.activity.ActivityListActivity;
+import com.zyj.qiqile.activity.activity.ActivityMapListViewActivity;
+import com.zyj.qiqile.activity.friend.FriendListActivity;
 import com.zyj.qiqile.activity.meprofile.MeProfileActivity;
 import com.zyj.qiqile.activity.more.MoreActivity;
 import com.zyj.qiqile.app.ActivityManagerApplication;
 import com.zyj.qiqile.app.QiqileApplication;
-import com.zyj.qiqile.domain.bo.UserBO;
-import com.zyj.qiqile.task.GenericTask;
-import com.zyj.qiqile.task.LoginTask;
-import com.zyj.qiqile.task.TaskParams;
 
 import android.app.ActivityGroup;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -31,32 +26,34 @@ public class QiqileMainActivity extends ActivityGroup {
 	private TextView moreButton;
 	private TextView meButton;
 	private TextView friendButton;
-	// Preferences.
-	private SharedPreferences mPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		QiqileApplication.getInstance().setMainActivity(this);
+		ActivityManagerApplication.getInstance().addActvity(this);
+		QiqileApplication.context = this;
+		setContentView();
+	}
+
+	public void setContentView() {
 		if (QiqileApplication.getInstance().isLogin()) {
 			setContentView(R.layout.main);
 		} else {
 			setContentView(R.layout.main_unlogin);
 		}
-		QiqileApplication.getInstance().context = this;
-		ActivityManagerApplication.getInstance().addActvity(this);
-		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		autoLogin();
-		container = (LinearLayout) findViewById(R.id.containerBody);
-		container.addView(getLocalActivityManager().startActivity(
-				"share",
-				new Intent(QiqileMainActivity.this, ActivityListActivity.class)
-						.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-				.getDecorView());
 		initButton();
 		bindListener();
 	}
 
 	private void initButton() {
+		container = (LinearLayout) findViewById(R.id.containerBody);
+		container.addView(getLocalActivityManager().startActivity(
+				"share",
+				new Intent(QiqileMainActivity.this,
+						ActivityMapListViewActivity.class)
+						.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+				.getDecorView());
 		shareButton = (TextView) findViewById(R.id.footer_btn_share);
 		moreButton = (TextView) findViewById(R.id.footer_btn_more);
 		if (QiqileApplication.getInstance().isLogin()) {
@@ -76,7 +73,7 @@ public class QiqileMainActivity extends ActivityGroup {
 				container.addView(getLocalActivityManager().startActivity(
 						"share",
 						new Intent(QiqileMainActivity.this,
-								ActivityListActivity.class)
+								ActivityMapListViewActivity.class)
 								.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
 						.getDecorView());
 			}
@@ -85,11 +82,11 @@ public class QiqileMainActivity extends ActivityGroup {
 			@Override
 			public void onClick(View v) {
 				container.removeAllViews();
-				container.addView(getLocalActivityManager().startActivity(
-						"more",
-						new Intent(QiqileMainActivity.this, MoreActivity.class)
-								.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-						.getDecorView());
+				container.addView(getLocalActivityManager()
+						.startActivity(
+								"more",
+								new Intent(QiqileMainActivity.this,
+										MoreActivity.class)).getDecorView());
 			}
 		});
 		if (QiqileApplication.getInstance().isLogin()) {
@@ -100,9 +97,7 @@ public class QiqileMainActivity extends ActivityGroup {
 					container.addView(getLocalActivityManager().startActivity(
 							"friend",
 							new Intent(QiqileMainActivity.this,
-									FriendActivity.class)
-									.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-							.getDecorView());
+									FriendListActivity.class)).getDecorView());
 				}
 			});
 			meButton.setOnClickListener(new OnClickListener() {
@@ -125,30 +120,28 @@ public class QiqileMainActivity extends ActivityGroup {
 					container.addView(getLocalActivityManager().startActivity(
 							"login",
 							new Intent(QiqileMainActivity.this,
-									LoginActivity.class)
-									.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-							.getDecorView());
+									LoginActivity.class)).getDecorView());
 				}
 			});
 		}
 	}
 
-	private void autoLogin() {
-		if (mPreferences != null) {
-			String email = mPreferences.getString(UserBO.EMAIL, null);
-			String password = mPreferences.getString(UserBO.PASSWORD, null);
-			Boolean checkedLogin = QiqileApplication.getInstance()
-					.getCheckLogin();
-			if (!checkedLogin && email != null && password != null) {
-				GenericTask task = new LoginTask();
-				TaskParams params = new TaskParams();
-				params.put(UserBO.PASSWORD, password);
-				params.put(UserBO.EMAIL, email);
-				task.execute(params);
-			}
-		}
-	}
-	
+	// private void autoLogin() {
+	// if (mPreferences != null) {
+	// String email = mPreferences.getString(UserBO.EMAIL, null);
+	// String password = mPreferences.getString(UserBO.PASSWORD, null);
+	// Boolean checkedLogin = QiqileApplication.getInstance()
+	// .getCheckLogin();
+	// if (!checkedLogin && email != null && password != null) {
+	// GenericTask task = new LoginTask(this);
+	// TaskParams params = new TaskParams();
+	// params.put(UserBO.PASSWORD, password);
+	// params.put(UserBO.EMAIL, email);
+	// task.execute(params);
+	// }
+	// }
+	// }
+
 	@Override
 	public void onBackPressed() {
 		AlertDialog.Builder builder = new Builder(this);

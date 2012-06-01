@@ -15,6 +15,7 @@
     <string name="error_unknow">未知错误</string>
     <string name="error_activity_comment_too_long">评论长度应当在140个字以内</string>
     <string name="error_is_yourself">这是你自己哦！</string>
+    <string name="error_is_your_friend">你已经关注他咯！</string>
     <!-- 按钮提示 -->
     <string name="page_label_get_more">获取更多</string>
     <string name="page_label_go_back">返回</string>
@@ -100,6 +101,7 @@
     <string name="input_activity_location_header">活动地点</string>
     <string name="input_activity_people_limit_header">人数限制</string>
     <string name="more_header">更多</string>
+    <string name="friend_header">我的关注</string>
     <!-- 找回密码 -->
     <string name="find_password_point">提示：\n
 	1、请输入您的登录邮箱或者注册邮箱\n
@@ -173,7 +175,8 @@
     <string name="add_friend">加为好友</string>
     <string name="add_activity_image">请添加一张海报吧！</string>
     <string name="activity_preview">预览</string>
-    <string name="load">加载</string>
+    <string name="load">更多</string>
+    <string name="empty_attention">你现在还没有关注哦！</string>
     
     <!-- EditText hint -->
     <string name="nick_hint">请输入昵称</string>

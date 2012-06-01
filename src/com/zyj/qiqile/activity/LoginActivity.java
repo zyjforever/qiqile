@@ -117,7 +117,7 @@ public class LoginActivity extends BasicMainActivity {
 				TaskParams params = new TaskParams();
 				params.put(UserBO.PASSWORD, password);
 				params.put(UserBO.EMAIL, emailOrAccount);
-				loginTask = new LoginTask();
+				loginTask = new LoginTask(this);
 				loginTask.setListener(new GenericAferExcutedListener() {
 					@Override
 					public void onPostExecute(GenericTask task,
@@ -127,6 +127,10 @@ public class LoginActivity extends BasicMainActivity {
 							editor.putString(UserBO.EMAIL, emailOrAccount);
 							editor.putString(UserBO.PASSWORD, password);
 							editor.commit();
+							QiqileApplication.getInstance().setCheckLogin(Boolean.TRUE);// 设置已经自动登录过
+							QiqileApplication.getInstance().setIsLogin(Boolean.TRUE);// 设置已经登陆
+							QiqileApplication.getInstance().getMainActivity()
+									.setContentView();
 						}
 					}
 				});

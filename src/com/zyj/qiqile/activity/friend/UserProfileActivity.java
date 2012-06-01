@@ -1,14 +1,12 @@
 package com.zyj.qiqile.activity.friend;
 
 import java.io.File;
-import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,13 +15,13 @@ import com.zyj.qiqile.R;
 import com.zyj.qiqile.activity.BasicBackActivity;
 import com.zyj.qiqile.activity.module.CommonImageModule;
 import com.zyj.qiqile.activity.module.CommonImageModule.PicType;
-import com.zyj.qiqile.domain.bo.ActivityCommentBO;
-import com.zyj.qiqile.domain.bo.ActivityJoinBO;
+import com.zyj.qiqile.app.QiqileApplication;
+import com.zyj.qiqile.domain.bo.UserAttentionBO;
 import com.zyj.qiqile.domain.bo.UserBO;
 import com.zyj.qiqile.domain.vo.UserVO;
-import com.zyj.qiqile.manager.ActivityJoinManager;
+import com.zyj.qiqile.manager.UserAttentionManager;
 import com.zyj.qiqile.manager.UserManager;
-import com.zyj.qiqile.manager.impl.ActivityJoinManagerImpl;
+import com.zyj.qiqile.manager.impl.UserAttentionManagerImpl;
 import com.zyj.qiqile.manager.impl.UserManagerImpl;
 import com.zyj.qiqile.task.GenericTask;
 import com.zyj.qiqile.task.TaskParams;
@@ -46,6 +44,9 @@ public class UserProfileActivity extends BasicBackActivity {
 	private CommonImageModule commonImageModule;
 	private ProgressDialog progressDialog;
 	private GenericTask loadProfileTask;
+	private GenericTask addFriendTask;
+
+	private String userId;
 
 	@Override
 	protected void initView() {
@@ -61,6 +62,7 @@ public class UserProfileActivity extends BasicBackActivity {
 		commonImageModule = new CommonImageModule(this, TAG, PicType.USER);
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage(getString(R.string.status_loading));
+		userId = getIntent().getExtras().getString(UserVO.USERID);
 		refresh();
 	}
 
@@ -68,8 +70,7 @@ public class UserProfileActivity extends BasicBackActivity {
 	private void refresh() {
 		loadProfileTask = new LoadUserProfileTask(context, progressDialog);
 		TaskParams taskParams = new TaskParams();
-		taskParams.put(UserVO.USERID,
-				getIntent().getExtras().getString(UserVO.USERID));
+		taskParams.put(UserVO.USERID, userId);
 		loadProfileTask.execute(taskParams);
 	}
 
@@ -104,7 +105,36 @@ public class UserProfileActivity extends BasicBackActivity {
 		addFriendButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				if (QiqileApplication.getInstance().isLogin()) {
+					boolean flag = true;
+					if (QiqileApplication.getInstance().getMyAttentionList() != null) {
+						for (UserAttentionBO uab : QiqileApplication
+								.getInstance().getMyAttentionList()) {
+							if (uab.getAttentionId().equals(userId)) {
+								flag = false;
+								break;
+							}
+						}
+					}
+					if (flag) {
+						progressDialog
+								.setMessage(getString(R.string.commit_status_in));
+						addFriendTask = new AddFriendTask(getBaseContext(),
+								progressDialog);
+						TaskParams params = new TaskParams();
+						params.put(UserAttentionBO.USERID, QiqileApplication
+								.getInstance().getUserBO().getId());
+						params.put(UserAttentionBO.ATTENTIONID, userId);
+						addFriendTask.execute(params);
+					} else {
+						Toast.makeText(getBaseContext(),
+								R.string.error_is_your_friend,
+								Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					Toast.makeText(context, R.string.please_login,
+							Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
@@ -119,6 +149,7 @@ public class UserProfileActivity extends BasicBackActivity {
 		this.setContentView(R.layout.friend_profile);
 	}
 
+	/** 加载用户信息的任务 */
 	class LoadUserProfileTask extends GenericTask {
 
 		private Context context;
@@ -159,7 +190,48 @@ public class UserProfileActivity extends BasicBackActivity {
 			}
 			return taskResult;
 		}
-
 	}
 
+	/** 添加好友的任务 */
+	class AddFriendTask extends GenericTask {
+
+		private Context context;
+		private ProgressDialog progressDialog;
+
+		public AddFriendTask(Context context, ProgressDialog progressDialog) {
+			this.context = context;
+			this.progressDialog = progressDialog;
+		}
+
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			super.onPostExecute(result);
+			if (result != null && result.getResult() == ResultCode.SUCCESS) {
+				progressDialog.dismiss();
+				Toast.makeText(context, R.string.commit_status_success,
+						Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(context, R.string.commit_status_fail,
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog.show();
+		}
+
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			TaskResult taskResult = null;
+			if (params != null) {
+				UserAttentionManager userAttentionManager = new UserAttentionManagerImpl();
+				taskResult = userAttentionManager.addAttenttion(
+						(String) params[0].get(UserAttentionBO.USERID),
+						(String) params[0].get(UserAttentionBO.ATTENTIONID));
+			}
+			return taskResult;
+		}
+	}
 }

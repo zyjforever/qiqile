@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.zyj.qiqile.R;
@@ -18,20 +20,20 @@ import com.zyj.qiqile.tools.TimeHelper;
 public class LoadLastestActivityTask extends GenericTask {
 
 	private Context context;
+	private ProgressDialog progressDialog;
 
-	public LoadLastestActivityTask() {
-		this.context = QiqileApplication.context;
-	}
-	
-	public LoadLastestActivityTask(Context context){
+	public LoadLastestActivityTask(Context context,
+			ProgressDialog progressDialog) {
 		this.context = context;
+		this.progressDialog = progressDialog;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		Toast.makeText(context, context.getString(R.string.status_loading),
-				Toast.LENGTH_SHORT).show();
+		// Toast.makeText(context, context.getString(R.string.status_loading),
+		// Toast.LENGTH_SHORT).show();
+		progressDialog.show();
 	}
 
 	@Override
@@ -60,6 +62,7 @@ public class LoadLastestActivityTask extends GenericTask {
 		if (result != null) {
 			ResultCode resultCode = result.getResult();
 			if (resultCode == ResultCode.SUCCESS) {
+				progressDialog.dismiss();
 				Toast.makeText(context,
 						context.getString(R.string.status_success),
 						Toast.LENGTH_SHORT).show();

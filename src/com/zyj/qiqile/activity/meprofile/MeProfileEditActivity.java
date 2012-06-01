@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.logging.FileHandler;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -260,8 +261,9 @@ public class MeProfileEditActivity extends BasicWriteActivity {
 		nuserBO.setCity(city);
 		nuserBO.setPicUrl(picUrl);
 		nuserBO.setPicName(picName);
+		nuserBO.setId(userBO.getId());
 		if (this.newPicName != null) {
-			uploadImageTask = new UploadImageTask();
+			uploadImageTask = new UploadImageTask(context);
 			uploadImageTask.setListener(new GenericAferExcutedListener() {
 				@Override
 				public void onPostExecute(GenericTask task, TaskResult result) {
@@ -271,7 +273,7 @@ public class MeProfileEditActivity extends BasicWriteActivity {
 						picName = newPicName;
 						nuserBO.setPicUrl(picUrl);
 						nuserBO.setPicName(picName);
-						updateProfileTask = new UpdateProfileTask();
+						updateProfileTask = new UpdateProfileTask(context);
 						TaskParams params = new TaskParams();
 						params.put("token", QiqileApplication.getInstance()
 								.getToken());
@@ -288,7 +290,7 @@ public class MeProfileEditActivity extends BasicWriteActivity {
 					+ ServerConstants.USER_PIC_SERVER_URL);
 			uploadImageTask.execute(params);
 		} else {
-			updateProfileTask = new UpdateProfileTask();
+			updateProfileTask = new UpdateProfileTask(this);
 			TaskParams params = new TaskParams();
 			params.put("token", QiqileApplication.getInstance().getToken());
 			params.put("userBO", nuserBO);
@@ -307,59 +309,57 @@ public class MeProfileEditActivity extends BasicWriteActivity {
 		userImageButton.setImageBitmap(bitmap);
 	}
 
-}
+	class UpdateProfileTask extends GenericTask {
 
-class UpdateProfileTask extends GenericTask {
+		private Context context;
+		private ProgressDialog progressDialog;
 
-	private Context context;
+		public UpdateProfileTask(Context context) {
+			this.context = context;
+			this.progressDialog = new ProgressDialog(context);
+		}
 
-	public UpdateProfileTask() {
-		context = QiqileApplication.context;
-	}
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog.setMessage(getString(R.string.commit_status_in));
+			progressDialog.show();
+		}
 
-	public UpdateProfileTask(Context context) {
-		this.context = context;
-	}
+		@Override
+		protected TaskResult _doInBackground(TaskParams... params) {
+			UserManager userManager = QiqileApplication.getInstance()
+					.getUserManager();
+			TaskResult taskResult = userManager.update(
+					(UserBO) params[0].get("userBO"),
+					(String) params[0].get("token"));
+			return taskResult;
+		}
 
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
-		Toast.makeText(context, context.getString(R.string.commit_status_in),
-				Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	protected TaskResult _doInBackground(TaskParams... params) {
-		UserManager userManager = QiqileApplication.getInstance()
-				.getUserManager();
-		TaskResult taskResult = userManager.update(
-				(UserBO) params[0].get("userBO"),
-				(String) params[0].get("token"));
-		return taskResult;
-	}
-
-	@Override
-	protected void onPostExecute(TaskResult result) {
-		if (result != null) {
-			ResultCode resultCode = result.getResult();
-			if (resultCode == ResultCode.SUCCESS) {
-				Toast.makeText(context,
-						context.getString(R.string.commit_status_success),
-						Toast.LENGTH_SHORT).show();
-			} else if (resultCode == ResultCode.NETWORK_ERROR) {
-				Toast.makeText(
-						context,
-						context.getString(R.string.login_status_network_or_connection_error),
-						Toast.LENGTH_SHORT).show();
+		@Override
+		protected void onPostExecute(TaskResult result) {
+			progressDialog.dismiss();
+			if (result != null) {
+				ResultCode resultCode = result.getResult();
+				if (resultCode == ResultCode.SUCCESS) {
+					Toast.makeText(context,
+							context.getString(R.string.commit_status_success),
+							Toast.LENGTH_SHORT).show();
+				} else if (resultCode == ResultCode.NETWORK_ERROR) {
+					Toast.makeText(
+							context,
+							context.getString(R.string.login_status_network_or_connection_error),
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(context,
+							context.getString(R.string.error_unknow),
+							Toast.LENGTH_SHORT).show();
+				}
 			} else {
 				Toast.makeText(context,
-						context.getString(R.string.error_unknow),
+						context.getString(R.string.commit_status_fail),
 						Toast.LENGTH_SHORT).show();
 			}
-		} else {
-			Toast.makeText(context,
-					context.getString(R.string.commit_status_fail),
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 }

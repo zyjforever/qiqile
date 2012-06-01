@@ -16,6 +16,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="7dp"
         android:layout_marginTop="2dp"
+        android:scaleType="fitCenter"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <RelativeLayout
@@ -64,7 +65,8 @@
             android:layout_below="@+id/comment_context"
             android:background="#ffff99"
             android:padding="5.0dip"
-            android:text="@string/button_reply" />
+            android:text="@string/button_reply" 
+            android:visibility="invisible"/>
     </RelativeLayout>
 
 </LinearLayout>

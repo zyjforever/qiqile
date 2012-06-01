@@ -13,5 +13,9 @@ public interface ActivityManager {
 
 	/** 查找某城市某天发布的活动 */
 	TaskResult queryActivityByCityAndTime(String city, Date time);
+	
+	/** 增加一个活动 */
+	TaskResult updateActivity(ActivityBO activityBO);
+
 
 }

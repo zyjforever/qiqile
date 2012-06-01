@@ -68,6 +68,7 @@ public class ActivityEdit5Activity extends BasicActivity {
 					activityBO.setLocation(location);
 					activityBO.setLatitude(latitude);
 					activityBO.setLongitude(longitude);
+					city=QiqileApplication.getInstance().getCity();
 					activityBO.setCity(city);
 					Intent intent = new Intent(ActivityEdit5Activity.this,
 							ActivityEdit6Activity.class);
@@ -109,7 +110,7 @@ public class ActivityEdit5Activity extends BasicActivity {
 				&& requestCode == Constants.REQUEST_ACTIVITY_LOCATION) {
 			latitude = data.getExtras().getDouble(ActivityBO.LATITUDE);
 			longitude = data.getExtras().getDouble(ActivityBO.LONGITUDE);
-			city = data.getExtras().getString(ActivityBO.CITY);
+//			city = data.getExtras().getString(ActivityBO.CITY);
 		}
 	}
 
